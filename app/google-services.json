@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "204583325752",
+    "firebase_url": "https://multiverso-explorer-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "multiverso-explorer",
+    "storage_bucket": "multiverso-explorer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204583325752:android:b6e2a24e1f730757bcd6cd",
+        "android_client_info": {
+          "package_name": "com.example.multiversoexplorer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204583325752-616rpvk6fh25p24dgu8ckdql7qahc3ig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDH-CSJxerReiwiM6ZGbKf6J4lYu5tPkIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204583325752-616rpvk6fh25p24dgu8ckdql7qahc3ig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

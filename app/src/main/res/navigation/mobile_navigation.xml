@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_ofertas"
+        android:name="com.example.multiversoexplorer.ui.home.HomeFragment"
+        android:label="Ofertas"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_viajes"
+        android:name="com.example.multiversoexplorer.ui.dashboard.DashboardFragment"
+        android:label="Viajes"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_favoritos"
+        android:name="com.example.multiversoexplorer.ui.notifications.NotificationsFragment"
+        android:label="Favoritos"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_ajustes"
+        android:name="com.example.multiversoexplorer.ui.ajustes.AjustesFragment"
+        android:label="Ajustes"
+        tools:layout="@layout/fragment_ajustes" />
+</navigation>
