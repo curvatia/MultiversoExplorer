@@ -2,6 +2,8 @@ package com.example.multiversoexplorer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,10 +15,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.multiversoexplorer.adapter.ReservasAdapter;
+import com.example.multiversoexplorer.ui.home.HomeViajesRV;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -34,10 +41,23 @@ public class MainActivity extends AppCompatActivity  {
     //Declaramos un objeto firebaseAuth
     private FirebaseAuth firebaseAuth;
 
+    //3ºRECYCLERVIEW-CARDVIEW
+    private RecyclerView miReciclador;
+    private ReservasAdapter miAdaptador;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //3ºRECYCLERVIEW FUNCIONA EN Pixel 3 API 30
+        this.miReciclador = (RecyclerView) findViewById(R.id.RecicladorView);
+        this.miReciclador.setHasFixedSize(true);
+        miReciclador.setLayoutManager(new LinearLayoutManager(this));
+        this.miAdaptador = new ReservasAdapter(DatosViajes());
+        this.miReciclador.setAdapter(miAdaptador);
+        //END3º
 
         //1º
         /*btnEntrar = (Button) findViewById(R.id.btnBoton);
@@ -115,6 +135,23 @@ public class MainActivity extends AppCompatActivity  {
     //2º FIN MÉTODOS REGISTROFB*/
 
 
+    //3ºRECYCLERVIEW
+    public List<HomeViajesRV> DatosViajes() {
+
+        List<HomeViajesRV> lista = new ArrayList<>();
+
+        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1100903.jpg"));
+        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1110164.jpg"));
+        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1100949.jpg"));
+        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1110056.jpg"));
+        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1110227.jpg"));
+        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1110143.jpg"));
+        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1110080.jpg"));
+        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1100826.jpg"));
+        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1100911.jpg"));
+        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1100824.jpg"));
+        return lista;
+    }//END 3ºRECYCLERVIEW
 
 
 }//END MainActivity

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="20dp"
+    android:background="@color/multiverso_1">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/EtiCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@color/multiverso_9"
+        app:cardCornerRadius="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/contenedorImagen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/idImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/multiverso_explorer_logo" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvTitulo"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contenedorImagen"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:text="Titulo"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="26dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
+            <TextView
+                android:id="@+id/tvDescripcion"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTitulo"
+                android:padding="5dp"
+                android:text="Descripción"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="16dp" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
