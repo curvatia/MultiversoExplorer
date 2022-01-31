@@ -29,8 +29,10 @@ public class HomeViajesActivity extends AppCompatActivity {
         this.Nombre = findViewById(R.id.tvTitulo);
         this.Info = findViewById(R.id.tvDescripcion);
 
+
         //Picasso.with(context).load(mThumbIds[position]).centerCrop().into(imageView);
         //this.Pictures.setImageResource(mTh);//this.Viajes.getFotos()
+        Picasso.get().load(Viajes.getFotos()).into(Pictures);
         this.Nombre.setText(this.Viajes.getViaje());
         this.Info.setText(this.Viajes.getInformacion());
     }

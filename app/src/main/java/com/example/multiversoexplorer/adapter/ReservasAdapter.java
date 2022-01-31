@@ -54,7 +54,7 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
         if (posicionseleccionada == position) {
             HomeViajesRV homeViajesRV = listaViajes.get(posicionseleccionada);
             Intent i = new Intent(holder.itemView.getContext(), HomeViajesActivity.class);
-            i.putExtra("viajes",homeViajesRV);
+            i.putExtra("reservas",homeViajesRV);
             holder.itemView.getContext().startActivity(i);
         }
     }

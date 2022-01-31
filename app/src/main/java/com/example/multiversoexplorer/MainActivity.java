@@ -25,21 +25,21 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
     //NEW CERO
-    private TextView tvHola;
+    //private TextView tvHola;
 
     //1º
-    private Button btnEntrar;
+    //private Button btnEntrar;
 
     //2ºREGISTROFB defining view objects
-    private EditText TextEmail;
+    /*private EditText TextEmail;
     private EditText TextPassword;
     private Button btnRegistrar;
     private ProgressDialog progressDialog;
     //Declaramos un objeto firebaseAuth
-    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth firebaseAuth;*/
 
     //3ºRECYCLERVIEW-CARDVIEW
     private RecyclerView miReciclador;
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity  {
         miReciclador.setLayoutManager(new LinearLayoutManager(this));
         this.miAdaptador = new ReservasAdapter(DatosViajes());
         this.miReciclador.setAdapter(miAdaptador);
-        //END3º
+        //END3ºRECYCLERVIEW
 
         //1º
         /*btnEntrar = (Button) findViewById(R.id.btnBoton);
@@ -79,10 +79,8 @@ public class MainActivity extends AppCompatActivity  {
         btnRegistrar = (Button) findViewById(R.id.botonRegistrar);
         progressDialog = new ProgressDialog(this);
         //attaching listener to button
-        btnRegistrar.setOnClickListener(this);
-        //END2º*/
-
-
+        btnRegistrar.setOnClickListener(this);*/
+        //END2ºREGISTROFB
 
     }//END onCreate
 
@@ -108,7 +106,7 @@ public class MainActivity extends AppCompatActivity  {
         progressDialog.setMessage("Realizando registro en linea...");
         progressDialog.show();
 
-        //creating a new user --> alice@ya.es getafe12345 || bob@ya.es 123456 || erik@ya.es 123456 || charlie@ya.es 123456 // alice@ya.com getafe12345
+        //creating a new user --> alice@ya.es 123456
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -131,8 +129,8 @@ public class MainActivity extends AppCompatActivity  {
     public void onClick(View view) {
         //Invocamos al método:
         registrarUsuario();
-    }
-    //2º FIN MÉTODOS REGISTROFB*/
+    }*/
+    //2º FIN MÉTODOS REGISTROFB
 
 
     //3ºRECYCLERVIEW
@@ -151,7 +149,8 @@ public class MainActivity extends AppCompatActivity  {
         lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1100911.jpg"));
         lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1100824.jpg"));
         return lista;
-    }//END 3ºRECYCLERVIEW
+    }
+    //END 3ºRECYCLERVIEW
 
 
 }//END MainActivity
