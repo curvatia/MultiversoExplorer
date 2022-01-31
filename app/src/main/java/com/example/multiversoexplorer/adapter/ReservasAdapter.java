@@ -1,5 +1,6 @@
 package com.example.multiversoexplorer.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,10 +18,14 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+//AL FINAL?! implements View.OnClickListener
 public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.ReservasViewHolder> {
 
     private final List<HomeViajesRV> listaViajes;
     private int posicionseleccionada = -1;
+
+    //¿?
+    //private View.OnClickListener listener;
 
     public ReservasAdapter(List<HomeViajesRV>Listado) {this.listaViajes = Listado;}
 
@@ -30,12 +35,13 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
         //return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_home, parent, false));
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_home, parent,false);
+       //View.setOnClickListener(this);//¿?
         return new ReservasViewHolder(view);
     }
 
     //MÉTODO 2
     @Override
-    public void onBindViewHolder(ReservasViewHolder holder, int position) {
+    public void onBindViewHolder(ReservasViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         String picTrip = listaViajes.get(position).getFotos();
         Picasso.get().load(picTrip).into(holder.FotoViaje);
@@ -54,7 +60,7 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
         if (posicionseleccionada == position) {
             HomeViajesRV homeViajesRV = listaViajes.get(posicionseleccionada);
             Intent i = new Intent(holder.itemView.getContext(), HomeViajesActivity.class);
-            i.putExtra("viajes",homeViajesRV);
+            i.putExtra("reservas",homeViajesRV);
             holder.itemView.getContext().startActivity(i);
         }
     }
@@ -62,6 +68,18 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
     //MÉTODO 3
     @Override
     public int getItemCount() {return listaViajes.size();}
+
+    //¿?
+    /*public void setOnClickListener(View.OnClickListener listener) {
+        this.listener=listener;
+    }
+    //¿?
+    @Override
+    public void onClick(View view) {
+        if (listener != null) {
+            listener.onClick(view);
+        }
+    }*/
 
     //MÉTODO 4
     public static class ReservasViewHolder extends RecyclerView.ViewHolder {
@@ -80,7 +98,7 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
 
             this.CardViewHome = (CardView) view.findViewById(R.id.EtiCardView);
         }
-        //¿?
+        //RIGHT?!
         public ImageView getFotoViaje() {return FotoViaje;}
         public TextView getTitulo() {return Titulo;}
         public CardView getCardViewHome() {return CardViewHome;}

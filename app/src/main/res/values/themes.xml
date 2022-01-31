@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MultiversoExplorer" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.MultiversoExplorer" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/multiverso_1</item>
         <item name="colorPrimaryVariant">@color/multiverso_9</item>

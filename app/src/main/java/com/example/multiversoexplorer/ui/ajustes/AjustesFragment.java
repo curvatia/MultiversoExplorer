@@ -20,10 +20,8 @@ public class AjustesFragment extends Fragment {
     private AjustesViewModel ajustesViewModel;
     private FragmentAjustesBinding binding;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        ajustesViewModel =
-                new ViewModelProvider(this).get(AjustesViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ajustesViewModel = new ViewModelProvider(this).get(AjustesViewModel.class);
 
         binding = FragmentAjustesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

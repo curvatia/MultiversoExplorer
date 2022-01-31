@@ -8,19 +8,15 @@
     tools:context=".MainActivity">
 
     <!--
-    <TextView
-        android:id="@+id/tvHola"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="HOLA"
-        tools:ignore="MissingConstraints" />
--->
+        <TextView
+            android:id="@+id/tvHola"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HOLA"
+            tools:ignore="MissingConstraints" />
+    -->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecicladorView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/multiverso_9"
-        android:scrollbars="vertical"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

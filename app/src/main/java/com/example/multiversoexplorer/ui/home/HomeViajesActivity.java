@@ -3,6 +3,7 @@ package com.example.multiversoexplorer.ui.home;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,8 +30,8 @@ public class HomeViajesActivity extends AppCompatActivity {
         this.Nombre = findViewById(R.id.tvTitulo);
         this.Info = findViewById(R.id.tvDescripcion);
 
-        //Picasso.with(context).load(mThumbIds[position]).centerCrop().into(imageView);
-        //this.Pictures.setImageResource(mTh);//this.Viajes.getFotos()
+        Picasso.get().load(Viajes.getFotos()).into(Pictures);
+        //this.Pictures.setImageResource(Viajes);//this.Viajes.getFotos()
         this.Nombre.setText(this.Viajes.getViaje());
         this.Info.setText(this.Viajes.getInformacion());
     }
