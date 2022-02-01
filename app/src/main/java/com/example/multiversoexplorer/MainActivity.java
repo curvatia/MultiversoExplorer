@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,8 +25,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends Activity {
 
     //NEW CERO
     private TextView tvHola;
@@ -52,7 +55,19 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
 
 
+//0ºSPLASH
+/*        TimerTask tarea = new TimerTask() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+                startActivity(intent);
+                finish();
+            }
 
+        Timer tiempo = new Timer();
+        tiempo.schedule(tarea,10000);//TIEMPO DE ESPERA 5SEG
+        };*/
+        //FIN 0ºSPLASH
         //1º
         /*btnEntrar = (Button) findViewById(R.id.btnBoton);
         btnEntrar.setOnClickListener(new View.OnClickListener() {

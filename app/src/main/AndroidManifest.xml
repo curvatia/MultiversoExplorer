@@ -13,10 +13,10 @@
         android:theme="@style/Theme.MultiversoExplorer">
         <activity
             android:name=".ui.home.HomeViajesActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".model.login.LoginActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity android:name=".BottomNavActivity"
             android:exported="true" />
         <activity
