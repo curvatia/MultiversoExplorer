@@ -56,17 +56,25 @@ public class MainActivity extends Activity {
 
 
 //0ºSPLASH
-/*        TimerTask tarea = new TimerTask() {
+        TimerTask tarea = new TimerTask() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainActivity.this, SplashActivity.class);
-                startActivity(intent);
-                finish();
-            }
+                synchronized (this){
+                    try {
+                        wait(2000);
+                        Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+                        startActivity(intent);
+                        finish();
+                        Intent bottomNav = new Intent(MainActivity.this, BottomNavActivity.class);
+                        startActivity(bottomNav);
+                    } catch (InterruptedException e) {}
 
+                }
+            }
+        };
         Timer tiempo = new Timer();
-        tiempo.schedule(tarea,10000);//TIEMPO DE ESPERA 5SEG
-        };*/
+        tiempo.schedule(tarea,0);//TIEMPO DE ESPERA 5SEG
+
         //FIN 0ºSPLASH
         //1º
         /*btnEntrar = (Button) findViewById(R.id.btnBoton);
@@ -79,8 +87,7 @@ public class MainActivity extends Activity {
         });*/
         //END1º
 
-        Intent intent = new Intent(this, BottomNavActivity.class);
-        startActivity(intent);
+
 
         //2ºREGISTROFB
         /*//inicializamos el objeto firebaseAuth
