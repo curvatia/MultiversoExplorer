@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MultiversoExplorer">
         <activity
+            android:name=".data.model.AuthActivity"
+            android:exported="false" />
+        <activity
+            android:name=".data.model.RegistroActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.login.LoginActivity"
             android:exported="false"
             android:label="@string/title_activity_login" />
