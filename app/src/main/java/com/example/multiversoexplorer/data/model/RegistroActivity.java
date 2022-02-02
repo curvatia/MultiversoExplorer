@@ -1,25 +1,21 @@
 package com.example.multiversoexplorer.data.model;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewFragment;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.multiversoexplorer.R;
+import com.example.multiversoexplorer.ui.dashboard.WebviewActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -35,6 +31,9 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
     //Declaramos un objeto firebaseAuth
     private FirebaseAuth firebaseAuth;
     private View tvTerminosCondiciones;
+    private View fragmentContainerView;
+    private CheckBox cbTerminos;
+    private CheckBox cbDatos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,28 +48,25 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         TextPassword = (EditText) findViewById(R.id.TxtPassword);
         btnRegistrar = (Button) findViewById(R.id.botonRegistrar);
         progressDialog = new ProgressDialog(this);
+        fragmentContainerView = findViewById(R.id.fragmentContainerView);
+        cbTerminos = findViewById(R.id.cbTerminos);
+        cbDatos = findViewById(R.id.cbDatos);
         //attaching listener to button
         btnRegistrar.setOnClickListener(this);
         //END2º
         tvTerminosCondiciones = findViewById(R.id.tvTerminosCondiciones);
         tvTerminosCondiciones.setOnClickListener(view -> {
-            getSupportFragmentManager().beginTransaction()
-                    .add(new WebViewFragment(), "")
-                    .addToBackStack(null)
-                    .commit();
+            startActivity(new Intent(this, WebviewActivity.class));
         });
-    }
-
-    public static class WebViewFragment extends Fragment {
-        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            WebView webView = new WebView(getActivity());
-            webView.loadUrl("https://www.multiversoexplorer.com/terminos-y-condiciones-generales/");
-            return webView;
-        }
     }
 
     //2º MÉTODOS REGISTROFB  ||alice@ya.es 123456
     private void registrarUsuario(){
+
+        if(!cbDatos.isChecked() || !cbTerminos.isChecked()){
+            Toast.makeText(this, "debes aceptar los terminos de uso",Toast.LENGTH_LONG).show();
+            return;
+        }
 
         //Obtenemos el email y la contraseña desde las cajas de texto
         String email = TextEmail.getText().toString().trim();

@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MultiversoExplorer">
         <activity
+            android:name=".ui.dashboard.WebviewActivity"
+            android:exported="false" />
+        <activity
             android:name=".data.model.AuthActivity"
             android:exported="false" />
         <activity
