@@ -39,6 +39,7 @@ public class DashboardFragment extends Fragment {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             binding.panelLogin.setVisibility(View.GONE);
+            binding.panelViajesNuevos.setVisibility(View.VISIBLE);
         } else {
             binding.button.setOnClickListener(view -> startActivity(new Intent(getContext(), AuthActivity.class)));
         }
