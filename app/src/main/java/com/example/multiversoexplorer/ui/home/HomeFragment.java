@@ -1,10 +1,15 @@
 package com.example.multiversoexplorer.ui.home;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,8 +23,17 @@ import com.example.multiversoexplorer.R;
 import com.example.multiversoexplorer.adapter.ReservasAdapter;
 import com.example.multiversoexplorer.databinding.FragmentHomeBinding;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HomeFragment extends Fragment {
 
@@ -27,6 +41,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private RecyclerView miReciclador;
     private ReservasAdapter miAdaptador;
+    private JSONObject jsonObject;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -38,29 +53,71 @@ public class HomeFragment extends Fragment {
         this.miReciclador = binding.RecicladorView;
         this.miReciclador.setHasFixedSize(true);
         miReciclador.setLayoutManager(new LinearLayoutManager(getContext()));
-        this.miAdaptador = new ReservasAdapter(DatosViajes());
-        this.miReciclador.setAdapter(miAdaptador);
+        pedirJSON();
         //END3ºRECYCLERVIEW
         return root;
     }
     //3ºRECYCLERVIEW
-    public List<HomeViajesRV> DatosViajes() {
-
+    public void pedirJSON() {
+        try {
+            String url = "https://www.multiversoexplorer.com/wp-json/wp/v2/trip";
+            new HttpAsyncTask().execute(url);
+        } catch (Exception e) {}
         List<HomeViajesRV> lista = new ArrayList<>();
-
-        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1100903.jpg"));
-        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1110164.jpg"));
-        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1100949.jpg"));
-        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1110056.jpg"));
-        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1110227.jpg"));
-        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1110143.jpg"));
-        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1110080.jpg"));
-        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1100826.jpg"));
-        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1100911.jpg"));
-        lista.add(new HomeViajesRV("Viajes de Aventura", "Dentro de un mismo destino", "https://www.multiversoexplorer.com/wp-content/uploads/2018/04/P1100824.jpg"));
-        return lista;
     }
     //END 3ºRECYCLERVIEW
+    private class HttpAsyncTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+            try {
+                HttpURLConnection urlConnection = (HttpURLConnection)
+                        new URL(urls[0]).openConnection();
+                urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                urlConnection.setDoInput(true);
+                BufferedReader bis = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                String res = bis.lines().collect(Collectors.joining("\n"));
+                bis.close();
+                return res;
+            } catch (Exception e) {}
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            try {
+                if(result == ""){
+                    Toast.makeText(getContext(), "Respuesta Vacia", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                ArrayList<HomeViajesRV> lista = new ArrayList<>();
+                JSONArray jsonArray = new JSONArray(result);
+                for (int i = 0; i < jsonArray.length(); i++){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    try {
+                        String title = jsonObject.getJSONObject("title").optString("rendered");
+                        String informacion = jsonObject.getJSONObject("excerpt").optString("rendered");
+                        String content = jsonObject.getJSONObject("content").optString("rendered");
+                        String urlImg = jsonObject.getJSONObject("featured_image").optString("file");
+                        lista.add(
+                                new HomeViajesRV(
+                                        title,
+                                        informacion,
+                                        content,
+                                        "https://www.multiversoexplorer.com/wp-content/uploads/" + urlImg));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                miAdaptador = new ReservasAdapter(lista);
+                miReciclador.setAdapter(miAdaptador);
+            } catch (Exception e) {
+                Toast.makeText(getContext(), "Respuesta Invalida", Toast.LENGTH_LONG);
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public void onDestroyView() {

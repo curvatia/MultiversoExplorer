@@ -2,6 +2,8 @@ package com.example.multiversoexplorer.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +50,8 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
         //holder.FotoViaje.setImageResource(listaViajes.get(position).getFotos());
 
         holder.Titulo.setText(listaViajes.get(position).getViaje());
-        holder.Descripcion.setText(listaViajes.get(position).getInformacion());
+        Spanned spanned = Html.fromHtml(listaViajes.get(position).getInformacion());
+        holder.Descripcion.setText(spanned);
 
         holder.CardViewHome.setOnClickListener(new View.OnClickListener() {
             @Override

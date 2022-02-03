@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 public class HomeViajesRV implements Serializable {
 
+    public String getContent() {
+        return Content;
+    }
+
+    private String Content;
     private String Fotos, Viaje, Informacion;
 
     //CONSTRUCTOR 1
@@ -12,9 +17,10 @@ public class HomeViajesRV implements Serializable {
     }
 
     //CONSTRUCTOR 2
-    public HomeViajesRV(String viaje, String informacion, String fotos) {
+    public HomeViajesRV(String viaje, String informacion, String content, String fotos) {
         this.Fotos = fotos;
         this.Viaje = viaje;
+        this.Content = content;
         this.Informacion = informacion;
     }
 
