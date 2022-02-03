@@ -1,6 +1,14 @@
 package com.example.multiversoexplorer.data;
 
+import androidx.annotation.NonNull;
+
+import com.example.multiversoexplorer.MainActivity;
 import com.example.multiversoexplorer.data.model.LoggedInUser;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -42,9 +50,9 @@ public class LoginRepository {
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
     }
-
     public Result<LoggedInUser> login(String username, String password) {
         // handle login
+
         Result<LoggedInUser> result = dataSource.login(username, password);
         if (result instanceof Result.Success) {
             setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());

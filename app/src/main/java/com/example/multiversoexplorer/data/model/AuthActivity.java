@@ -7,13 +7,27 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.multiversoexplorer.MainActivity;
 import com.example.multiversoexplorer.R;
 import com.example.multiversoexplorer.ui.login.LoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class AuthActivity extends AppCompatActivity {
 
     private Button btnIniciarSesion;
     private Button btnRegistro;
+    private FirebaseAuth mAuth;
+// ...
+// Initialize Firebase Auth
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,5 +37,14 @@ public class AuthActivity extends AppCompatActivity {
         btnRegistro = findViewById(R.id.btnRegistro);
         btnIniciarSesion.setOnClickListener(view -> startActivity(new Intent(AuthActivity.this.getBaseContext(), LoginActivity.class)));
         btnRegistro.setOnClickListener(view -> startActivity(new Intent(AuthActivity.this.getBaseContext(), RegistroActivity.class)));
+        mAuth = FirebaseAuth.getInstance();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mAuth.getCurrentUser()!=null){
+            finish();
+        }
     }
 }

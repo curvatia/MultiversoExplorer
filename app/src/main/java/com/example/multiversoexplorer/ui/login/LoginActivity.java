@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.multiversoexplorer.R;
+import com.example.multiversoexplorer.data.model.AuthActivity;
 import com.example.multiversoexplorer.ui.login.LoginViewModel;
 import com.example.multiversoexplorer.ui.login.LoginViewModelFactory;
 import com.example.multiversoexplorer.databinding.ActivityLoginBinding;
@@ -44,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
 
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
-        final Button loginButton = binding.login;
+        final Button loginButton = binding.btnLogin;
         final ProgressBar loadingProgressBar = binding.loading;
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
@@ -81,6 +82,10 @@ public class LoginActivity extends AppCompatActivity {
                 //Complete and destroy login activity once successful
                 finish();
             }
+        });
+
+        binding.btnLogin.setOnClickListener(view -> {
+            loginViewModel.login(binding.username.getText().toString(), binding.password.getText().toString());
         });
 
         TextWatcher afterTextChangedListener = new TextWatcher() {
