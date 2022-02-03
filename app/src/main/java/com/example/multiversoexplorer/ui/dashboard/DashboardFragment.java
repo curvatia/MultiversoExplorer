@@ -30,9 +30,11 @@ public class DashboardFragment extends Fragment {
         dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        checkLogin();
+        return binding.getRoot();
+    }
 
-
+    private void checkLogin() {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
@@ -40,9 +42,13 @@ public class DashboardFragment extends Fragment {
         } else {
             binding.button.setOnClickListener(view -> startActivity(new Intent(getContext(), AuthActivity.class)));
         }
-        return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkLogin();
+    }
 
     @Override
     public void onDestroyView() {

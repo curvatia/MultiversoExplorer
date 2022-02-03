@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.multiversoexplorer.R;
 import com.example.multiversoexplorer.databinding.FragmentAjustesBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AjustesFragment extends Fragment {
 
@@ -25,6 +26,11 @@ public class AjustesFragment extends Fragment {
 
         binding = FragmentAjustesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        binding.btnSingOut.setOnClickListener(view -> {
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            mAuth.signOut();
+        });
 
         final TextView textView = binding.textAjustes;
         ajustesViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {

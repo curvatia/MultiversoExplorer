@@ -22,4 +22,12 @@
         app:layout_constraintTop_toTopOf="parent"
         android:text="FRAGMENT AJUSTES" />
 
+    <Button
+        android:id="@+id/btnSingOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cerrar sesion"
+        tools:layout_editor_absoluteX="214dp"
+        tools:layout_editor_absoluteY="49dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

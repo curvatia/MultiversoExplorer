@@ -23,7 +23,7 @@ public class LoginDataSource {
             LoggedInUser usuarioIdentificado =
                     new LoggedInUser(
                             user.getProviderId(),
-                            user.getEmail());
+                            user.getEmail().substring(0,user.getEmail().indexOf('@')));
             //.substring(0,user.getEmail().indexOf('@'))
             return new Result.Success<>(usuarioIdentificado);
         } else {
