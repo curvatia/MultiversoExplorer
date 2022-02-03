@@ -9,11 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
         android:background="@color/multiverso_1"
-        android:orientation="vertical"
-        app:cardCornerRadius="20dp"
-        tools:context=".ui.home.HomeViajesActivity">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,23 +34,31 @@
                     android:adjustViewBounds="true"
                     app:srcCompat="@drawable/multiverso_explorer_leon" />
 
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/floatingActionButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:clickable="true"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/ic_favoritos" />
+
             </FrameLayout>
+
         </LinearLayout>
 
         <TextView
             android:id="@+id/tvTitulo"
-            style="@style/TextAppearance.AppCompat.Headline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contenedorImagen"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
             android:padding="5dp"
             android:text="Titulo"
             android:textColor="?android:textColorSecondary"
             android:textSize="26dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark"
-            android:visibility="gone" />
+            android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
         <LinearLayout
             android:layout_width="match_parent"
