@@ -9,7 +9,11 @@ public class HomeViajesRV implements Serializable {
     }
 
     private String Content;
-    private String Fotos, Viaje, Informacion;
+    private String precio;
+    private String dias;
+    private String Fotos;
+    private String Viaje;
+    private String Informacion;
 
     //CONSTRUCTOR 1
     public HomeViajesRV() {
@@ -17,7 +21,9 @@ public class HomeViajesRV implements Serializable {
     }
 
     //CONSTRUCTOR 2
-    public HomeViajesRV(String viaje, String informacion, String content, String fotos) {
+    public HomeViajesRV(String viaje, String informacion, String content,String precio, String dias, String fotos) {
+        this.precio = precio;
+        this.dias = dias;
         this.Fotos = fotos;
         this.Viaje = viaje;
         this.Content = content;
@@ -46,6 +52,8 @@ public class HomeViajesRV implements Serializable {
         Informacion = informacion;
     }
 
+    public String getPrecio() { return precio; }
+    public String getDias() { return dias; }
 
     @Override
     public String toString() {

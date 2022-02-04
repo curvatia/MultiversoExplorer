@@ -3,7 +3,6 @@ package com.example.multiversoexplorer.adapter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.text.Html;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,14 +44,16 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
     @Override
     public void onBindViewHolder(ReservasViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        String picTrip = listaViajes.get(position).getFotos();
+        HomeViajesRV viaje = listaViajes.get(position);
+        String picTrip = viaje.getFotos();
         Picasso.get().load(picTrip).into(holder.FotoViaje);
-        //holder.FotoViaje.setImageResource(listaViajes.get(position).getFotos());
-
-        holder.Titulo.setText(listaViajes.get(position).getViaje());
-        Spanned spanned = Html.fromHtml(listaViajes.get(position).getInformacion());
-        holder.Descripcion.setText(spanned);
-
+        holder.Titulo.setText(viaje.getViaje());
+        holder.Descripcion.setText(Html.fromHtml(viaje.getInformacion()));
+        holder.Precio.setText(viaje.getPrecio() + " €");
+        holder.Dias.setText(viaje.getDias() + " días");
+        holder.Fblike.setOnClickListener(view -> {
+            //TODO
+        });
         holder.CardViewHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,16 +91,19 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
         private final ImageView FotoViaje;
         private final TextView Titulo, Descripcion;
         private final CardView CardViewHome;
+        private final TextView Precio;
+        private final TextView Dias;
+        private final View Fblike;
 
         public ReservasViewHolder(View view) {
             super(view);
-
             this.FotoViaje = (ImageView) view.findViewById(R.id.idImg);
-
             this.Titulo = (TextView) view.findViewById(R.id.tvTitulo);
             this.Descripcion = (TextView) view.findViewById(R.id.tvDescripcion);
-
             this.CardViewHome = (CardView) view.findViewById(R.id.EtiCardView);
+            this.Precio = view.findViewById(R.id.tvPrecio);
+            this.Dias = view.findViewById(R.id.tvDias);
+            Fblike = view.findViewById(R.id.fbLike);
         }
         //RIGHT?!
         public ImageView getFotoViaje() {return FotoViaje;}

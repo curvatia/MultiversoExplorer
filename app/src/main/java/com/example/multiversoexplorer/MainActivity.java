@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
             public void run() {
                 synchronized (this){
                     try {
-                        wait(1000);
+                        wait(500);
                         Intent intent = new Intent(MainActivity.this, SplashActivity.class);
                         startActivity(intent);
                         finish();
