@@ -31,6 +31,9 @@ public class DashboardFragment extends Fragment {
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         checkLogin();
+        binding.floatingActionButton.setOnClickListener(view -> {
+            startActivity(new Intent(getContext(), FormularioViajes.class));
+        });
         return binding.getRoot();
     }
 

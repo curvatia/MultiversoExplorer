@@ -99,11 +99,15 @@ public class HomeFragment extends Fragment {
                         String informacion = jsonObject.getJSONObject("excerpt").optString("rendered");
                         String content = jsonObject.getJSONObject("content").optString("rendered");
                         String urlImg = jsonObject.getJSONObject("featured_image").optString("file");
+                        String precio = jsonObject.optString("price");
+                        String duracion = jsonObject.getJSONObject("duration").optString("days");
                         lista.add(
                                 new HomeViajesRV(
                                         title,
                                         informacion,
                                         content,
+                                        precio,
+                                        duracion,
                                         "https://www.multiversoexplorer.com/wp-content/uploads/" + urlImg));
                     } catch (JSONException e) {
                         e.printStackTrace();
