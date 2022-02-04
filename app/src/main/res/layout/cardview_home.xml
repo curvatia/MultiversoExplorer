@@ -31,6 +31,17 @@
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     app:srcCompat="@drawable/multiverso_explorer_logo" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/floatingActionButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:clickable="true"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/ic_favoritos" />
+
             </FrameLayout>
 
             <TextView
