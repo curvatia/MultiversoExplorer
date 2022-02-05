@@ -72,13 +72,14 @@
 
             <TextView
                 android:id="@+id/tvPrecio"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/multiverso_8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="false"
                 android:layout_centerHorizontal="false"
                 android:layout_centerVertical="false"
+                android:textStyle="bold"
                 android:text="precio"
                 android:textSize="20dp" />
 
@@ -88,8 +89,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/contenedorImagen"
                 android:layout_alignParentEnd="true"
-                android:text="duracion"
-                android:textColor="#FFFFFF"
+                android:text="Duración"
+                android:textColor="@color/multiverso_8"
+                android:textStyle="bold"
                 android:textSize="20dp" />
 
         </RelativeLayout>
