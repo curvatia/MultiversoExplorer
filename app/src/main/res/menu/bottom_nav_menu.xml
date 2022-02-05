@@ -9,7 +9,7 @@
     <item
         android:id="@+id/navigation_viajes"
         android:icon="@drawable/ic_viajes"
-        android:title="Viajes" />
+        android:title="Mis Viajes" />
 
     <item
         android:id="@+id/navigation_favoritos"

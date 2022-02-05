@@ -14,7 +14,7 @@
     <fragment
         android:id="@+id/navigation_viajes"
         android:name="com.example.multiversoexplorer.ui.dashboard.DashboardFragment"
-        android:label="Viajes"
+        android:label=" Mis Viajes"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
