@@ -5,25 +5,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.multiversoexplorer.R;
+import com.example.multiversoexplorer.adapter.TicketsAdapter;
 import com.example.multiversoexplorer.data.model.AuthActivity;
 import com.example.multiversoexplorer.databinding.FragmentDashboardBinding;
-import com.example.multiversoexplorer.ui.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.List;
 
 public class DashboardFragment extends Fragment {
 
@@ -37,51 +32,37 @@ public class DashboardFragment extends Fragment {
         dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
-        checkLogin();
+
+        dashboardViewModel.getListaViajesCreados().observe(
+                DashboardFragment.this, new Observer<List<DashboardViajesRV>>() {
+                    @Override
+                    public void onChanged(List<DashboardViajesRV> dashboardViajesRVS) {
+                        binding.rvDashboard.setAdapter(new TicketsAdapter(dashboardViajesRVS));
+                    }
+                });
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser()!=null) {
+                    binding.panelLogin.setVisibility(View.GONE);
+                    binding.panelViajesNuevos.setVisibility(View.VISIBLE);
+                } else {
+                    binding.button.setOnClickListener(view -> startActivity(new Intent(getContext(), AuthActivity.class)));
+                }
+            }
+        });
+
         binding.floatingActionButton.setOnClickListener(view -> {
             startActivity(new Intent(getContext(), FormularioViajes.class));
         });
-        mAuth = FirebaseAuth.getInstance();
-        if(mAuth.getCurrentUser() != null){
-            DatabaseReference mChild = miDatabaseReference
-                    .child("userdata")
-                    .child(mAuth.getCurrentUser().getUid())
-                    .child("viajesCreados");
-            mChild.addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                    String valor = snapshot.getValue().toString();
-                    valor.toString();
-                }
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {}
-            });
-        }
 
         return binding.getRoot();
     }
 
-    private void checkLogin() {
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            binding.panelLogin.setVisibility(View.GONE);
-            binding.panelViajesNuevos.setVisibility(View.VISIBLE);
-        } else {
-            binding.button.setOnClickListener(view -> startActivity(new Intent(getContext(), AuthActivity.class)));
-        }
-    }
+    private void observarViajes() {
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        checkLogin();
     }
 
     @Override

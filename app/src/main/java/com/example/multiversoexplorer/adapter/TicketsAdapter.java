@@ -17,6 +17,10 @@ import java.util.List;
 public class TicketsAdapter  extends RecyclerView.Adapter<TicketsAdapter.TicketsViewHolder> {
     private List<DashboardViajesRV> lista;
 
+    public TicketsAdapter(List<DashboardViajesRV> lista) {
+        this.lista = lista;
+    }
+
     @NonNull
     @Override
     public TicketsAdapter.TicketsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
