@@ -64,6 +64,7 @@
                 android:paddingRight="20px">
 
                 <Button
+                    android:id="@+id/btnVuelo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_vuelos"
@@ -87,6 +88,7 @@
                 android:paddingLeft="20px">
 
                 <Button
+                    android:id="@+id/btnCoche"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_coche"
@@ -121,6 +123,7 @@
                 android:paddingRight="20px">
 
                 <Button
+                    android:id="@+id/btnHotel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_hotel"
@@ -145,6 +148,7 @@
                 android:paddingLeft="20px">
 
                 <Button
+                    android:id="@+id/btnTren"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_tren"
