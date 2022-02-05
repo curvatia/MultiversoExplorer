@@ -37,7 +37,7 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Fecha de inicio" />
+        android:text="Fecha de ida" />
 
     <EditText
         android:id="@+id/etFechaIda"
@@ -53,7 +53,7 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Fecha fin" />
+        android:text="Fecha de vuelta" />
 
     <EditText
         android:id="@+id/etFechaVuelta"
@@ -66,7 +66,7 @@
         android:minHeight="48dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnGuardarViajes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="GUARDAR DATOS" />

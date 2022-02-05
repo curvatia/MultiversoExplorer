@@ -4,15 +4,22 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/multiverso_3">
+    android:background="@color/multiverso_9">
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="2"
         android:gravity="center">
+
+
+        <ImageButton
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="100"
+            android:background="@drawable/multiverso_explorer_logo" />
 
         <TextView
             android:id="@+id/txBienvenida"
@@ -59,7 +66,8 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_vuelos" />
+                    android:background="@drawable/ic_vuelos"
+                    android:layout_margin="10dp"/>
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -81,7 +89,8 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_coche" />
+                    android:background="@drawable/ic_coche"
+                    android:layout_margin="10dp"/>
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -115,7 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_hotel"
-                    android:padding="20px" />
+                    android:layout_margin="10dp"/>
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -138,7 +147,8 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_tren" />
+                    android:background="@drawable/ic_tren"
+                    android:layout_margin="10dp"/>
 
                 <TextView
                     android:layout_width="fill_parent"
