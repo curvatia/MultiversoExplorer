@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="20dp"
+    android:background="@color/multiverso_1">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/EtiCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@color/multiverso_9"
+        app:cardCornerRadius="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/contenedorImagen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/multiverso_explorer_logo" />
+                <!--
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fbLike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:clickable="true"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/ic_favoritos"
+                    tools:ignore="SpeakableTextPresentCheck" />-->
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvDestino"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contenedorImagen"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:text="Titulo"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="26dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
+            <TextView
+                android:id="@+id/tvFechaIda"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvDestino"
+                android:padding="5dp"
+                android:text="Descripción"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/tvFechaVuelta"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tvFechaIda"
+                android:layout_toEndOf="@+id/tvFechaIda"
+                android:padding="5dp"
+                android:text="Descripción"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="16dp" />
+            <!--
+            <TextView
+                android:id="@+id/tvPrecio"
+                android:textColor="@color/multiverso_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="false"
+                android:layout_centerHorizontal="false"
+                android:layout_centerVertical="false"
+                android:textStyle="bold"
+                android:text="precio"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/tvDias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/contenedorImagen"
+                android:layout_alignParentEnd="true"
+                android:text="Duración"
+                android:textColor="@color/multiverso_8"
+                android:textStyle="bold"
+                android:textSize="20dp" />-->
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
+<!--
+
+            <TextView
+                android:id="@+id/tvFechaVuelta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/tvDestino"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+-->

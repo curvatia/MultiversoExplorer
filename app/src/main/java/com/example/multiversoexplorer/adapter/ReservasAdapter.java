@@ -23,7 +23,6 @@ import java.util.List;
 public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.ReservasViewHolder> {
 
     private final List<HomeViajesRV> listaViajes;
-    private int posicionseleccionada = -1;
 
     //¿?
     //private View.OnClickListener listener;
@@ -43,7 +42,6 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
     //MÉTODO 2
     @Override
     public void onBindViewHolder(ReservasViewHolder holder, @SuppressLint("RecyclerView") int position) {
-
         HomeViajesRV viaje = listaViajes.get(position);
         String picTrip = viaje.getFotos();
         Picasso.get().load(picTrip).into(holder.FotoViaje);
@@ -54,19 +52,11 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
         holder.Fblike.setOnClickListener(view -> {
             //TODO
         });
-        holder.CardViewHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                posicionseleccionada = position;
-                notifyDataSetChanged();
-            }
-        });
-        if (posicionseleccionada == position) {
-            HomeViajesRV homeViajesRV = listaViajes.get(posicionseleccionada);
+        holder.CardViewHome.setOnClickListener(view -> {
             Intent i = new Intent(holder.itemView.getContext(), HomeViajesActivity.class);
-            i.putExtra("reservas",homeViajesRV);
+            i.putExtra("reservas",viaje);
             holder.itemView.getContext().startActivity(i);
-        }
+        });
     }
 
     //MÉTODO 3
