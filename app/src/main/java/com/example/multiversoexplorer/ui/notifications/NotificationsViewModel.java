@@ -33,13 +33,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class NotificationsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
     private MutableLiveData<List<String>> listaFavoritos;
-    private MutableLiveData<HashMap<String, HomeViajesRV>> listaViajes;
+    private MutableLiveData<ConcurrentHashMap<String, HomeViajesRV>> listaViajes;
     private List<String> pendientes = new ArrayList<>();
     private String json;
 
@@ -51,7 +52,7 @@ public class NotificationsViewModel extends ViewModel {
         mText = new MutableLiveData<>();
         mText.setValue("FRAGMENT DE VIAJES FAVORITOS DESDE HOME");
         listaFavoritos = new MutableLiveData<List<String>>(new ArrayList<>());
-        listaViajes = new MutableLiveData<HashMap<String, HomeViajesRV>>(new HashMap<>());
+        listaViajes = new MutableLiveData<ConcurrentHashMap<String, HomeViajesRV>>(new ConcurrentHashMap<>());
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
@@ -62,8 +63,6 @@ public class NotificationsViewModel extends ViewModel {
                 }
             }
         });
-
-
     }
 
     private void observarIdsFavoritos(){
@@ -97,19 +96,11 @@ public class NotificationsViewModel extends ViewModel {
 
     private Object modificarViajes = new Object();
     private void procesarPendientes(){
-        synchronized(modificarViajes) {
-            for (String k : this.pendientes) {
-                buscarEnJson(k);
-            }
-            this.pendientes.clear();
-
-            HashMap<String, HomeViajesRV> viajes = listaViajes.getValue();
-            for (String id : viajes.keySet()) {
-                if (!this.listaFavoritos.getValue().contains(id))
-                    viajes.remove(id);
-            }
-            listaViajes.setValue(listaViajes.getValue());
+        for (String k : this.pendientes) {
+            buscarEnJson(k);
         }
+        this.pendientes.clear();
+        listaViajes.setValue(listaViajes.getValue());
     }
 
     private void buscarEnJson(String k){
@@ -181,7 +172,7 @@ public class NotificationsViewModel extends ViewModel {
     public LiveData<List<String>> getListaFavoritos() {
         return listaFavoritos;
     }
-    public MutableLiveData<HashMap<String, HomeViajesRV>> getListaViajes() {
+    public MutableLiveData<ConcurrentHashMap<String, HomeViajesRV>> getListaViajes() {
         return listaViajes;
     }
 }

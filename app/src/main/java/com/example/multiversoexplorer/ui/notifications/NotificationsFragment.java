@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class NotificationsFragment extends Fragment {
 
@@ -42,9 +43,9 @@ public class NotificationsFragment extends Fragment {
         binding.rvFavoritos.setLayoutManager(new LinearLayoutManager(getContext()));
 
         notificationsViewModel.getListaViajes().observe(
-                NotificationsFragment.this, new Observer<HashMap<String, HomeViajesRV>>() {
+                NotificationsFragment.this, new Observer<ConcurrentHashMap<String, HomeViajesRV>>() {
                     @Override
-                    public void onChanged(HashMap<String, HomeViajesRV> homeViajesRVS) {
+                    public void onChanged(ConcurrentHashMap<String, HomeViajesRV> homeViajesRVS) {
                         binding.rvFavoritos.setAdapter(
                                 new ReservasAdapter(new ArrayList<>(homeViajesRVS.values())));
                     }
