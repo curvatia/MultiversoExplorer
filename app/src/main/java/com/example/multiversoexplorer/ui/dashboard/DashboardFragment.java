@@ -34,12 +34,12 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
 
         dashboardViewModel.getListaViajesCreados().observe(
-                DashboardFragment.this, new Observer<List<DashboardViajesRV>>() {
-                    @Override
-                    public void onChanged(List<DashboardViajesRV> dashboardViajesRVS) {
-                        binding.rvDashboard.setAdapter(new TicketsAdapter(dashboardViajesRVS));
-                    }
-                });
+            DashboardFragment.this, new Observer<List<DashboardViajesRV>>() {
+                @Override
+                public void onChanged(List<DashboardViajesRV> dashboardViajesRVS) {
+                    binding.rvDashboard.setAdapter(new TicketsAdapter(dashboardViajesRVS));
+                }
+        });
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
