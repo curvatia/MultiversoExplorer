@@ -18,12 +18,16 @@ public class FormularioViajes extends AppCompatActivity implements DatePickerDia
     private TextView etFechaIda;
     private TextView etFechaVuelta;
     private boolean ida = false;
+    private View btnGuardarViajes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_viajes);
+        setTitle("Crear Viaje");
         etFechaIda = findViewById(R.id.etFechaIda);
         etFechaVuelta = findViewById(R.id.etFechaVuelta);
+        btnGuardarViajes = findViewById(R.id.btnGuardarViajes);
         etFechaIda.setOnClickListener(view -> {
             ida = true;
             showDatePicker();
@@ -32,7 +36,9 @@ public class FormularioViajes extends AppCompatActivity implements DatePickerDia
             ida = false;
             showDatePicker();
         });
-        setTitle("Crear Viaje");
+        btnGuardarViajes.setOnClickListener(view -> {
+            
+        });
     }
 
     private void showDatePicker() {

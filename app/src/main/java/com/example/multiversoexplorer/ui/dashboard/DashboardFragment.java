@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.multiversoexplorer.adapter.TicketsAdapter;
 import com.example.multiversoexplorer.data.model.AuthActivity;
@@ -32,12 +33,16 @@ public class DashboardFragment extends Fragment {
         dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding.rvDashboard.setLayoutManager(new LinearLayoutManager(getContext()));
 
         dashboardViewModel.getListaViajesCreados().observe(
             DashboardFragment.this, new Observer<List<DashboardViajesRV>>() {
                 @Override
                 public void onChanged(List<DashboardViajesRV> dashboardViajesRVS) {
                     binding.rvDashboard.setAdapter(new TicketsAdapter(dashboardViajesRVS));
+                    int visibility = dashboardViajesRVS.isEmpty() ? View.VISIBLE : View.GONE;
+                    binding.ivCrearTicket.setVisibility(visibility);
+                    binding.tvCrearViaje.setVisibility(visibility);
                 }
         });
 
@@ -59,10 +64,6 @@ public class DashboardFragment extends Fragment {
         });
 
         return binding.getRoot();
-    }
-
-    private void observarViajes() {
-
     }
 
     @Override
