@@ -6,14 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.multiversoexplorer.HomeWebViewActivity;
 import com.example.multiversoexplorer.R;
-import com.example.multiversoexplorer.ui.dashboard.WebviewActivity;
 import com.squareup.picasso.Picasso;
 
 public class HomeViajesActivity extends AppCompatActivity {
@@ -49,6 +46,6 @@ public class HomeViajesActivity extends AppCompatActivity {
             startActivity(new Intent(this, HomeWebViewActivity.class));
         });
         
-        
+
     }
 }

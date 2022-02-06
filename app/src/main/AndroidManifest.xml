@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MultiversoExplorer">
         <activity
-            android:name=".HomeWebViewActivity"
+            android:name=".ui.home.HomeWebViewActivity"
             android:exported="false" />
         <activity
             android:name=".ui.dashboard.GuardarBilletesActivity"
