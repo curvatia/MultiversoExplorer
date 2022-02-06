@@ -2,7 +2,7 @@ package com.example.multiversoexplorer.ui.dashboard;
 
 import java.io.Serializable;
 
-public class DashboardViajesRV  implements Serializable {
+public class DashboardViajesRV implements Serializable {
     private String picture;
     private String destino;
     private String fechaIda, fechaVuelta;

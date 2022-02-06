@@ -37,7 +37,7 @@ public class FormularioViajes extends AppCompatActivity implements DatePickerDia
             showDatePicker();
         });
         btnGuardarViajes.setOnClickListener(view -> {
-            
+
         });
     }
 
@@ -46,9 +46,10 @@ public class FormularioViajes extends AppCompatActivity implements DatePickerDia
         DatePickerDialog calendarioFecha = new DatePickerDialog(
                 this,
                 this,
-                now.get(Calendar.DAY_OF_MONTH),
+                now.get(Calendar.YEAR),
                 now.get(Calendar.MONTH),
-                now.get(Calendar.YEAR));
+                now.get(Calendar.DAY_OF_MONTH)
+                );
         calendarioFecha.show();
     }
 

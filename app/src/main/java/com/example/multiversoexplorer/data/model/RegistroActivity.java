@@ -3,6 +3,8 @@ package com.example.multiversoexplorer.data.model;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -56,6 +58,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         //END2º
         tvTerminosCondiciones = findViewById(R.id.tvTerminosCondiciones);
         tvTerminosCondiciones.setOnClickListener(view -> {
+            //Navigation.findNavController(view, R.id.navigation_viajes).navigate(R.id.wvShowTOC);
             startActivity(new Intent(this, WebviewActivity.class));
         });
     }
