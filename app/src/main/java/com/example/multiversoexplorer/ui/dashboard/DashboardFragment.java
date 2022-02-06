@@ -53,8 +53,6 @@ public class DashboardFragment extends Fragment {
                 if (firebaseAuth.getCurrentUser()!=null) {
                     binding.panelLogin.setVisibility(View.GONE);
                     binding.panelViajesNuevos.setVisibility(View.VISIBLE);
-                } else {
-                    binding.button.setOnClickListener(view -> startActivity(new Intent(getContext(), AuthActivity.class)));
                 }
             }
         });
@@ -64,6 +62,15 @@ public class DashboardFragment extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(FirebaseAuth.getInstance().getCurrentUser()==null){
+            binding.panelLogin.setVisibility(View.VISIBLE);
+            binding.button.setOnClickListener(view -> startActivity(new Intent(getContext(), AuthActivity.class)));
+        }
     }
 
     @Override
