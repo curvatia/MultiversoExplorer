@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/btnClickado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Añadir una reserva"
+        android:textSize="25dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="86dp"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/imgVuelos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VUELOS"
+        app:srcCompat="@android:drawable/btn_star_big_on"
+        tools:layout_editor_absoluteX="229dp"
+        tools:layout_editor_absoluteY="75dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvVuelos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vuelo"
+        tools:layout_editor_absoluteX="90dp"
+        tools:layout_editor_absoluteY="133dp"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/txtResultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <ImageButton
+        android:id="@+id/imgCoches"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VUELOS"
+        app:srcCompat="@android:drawable/btn_star_big_on"
+        tools:layout_editor_absoluteX="82dp"
+        tools:layout_editor_absoluteY="75dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvCoches"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coche de alquiler"
+        tools:layout_editor_absoluteX="202dp"
+        tools:layout_editor_absoluteY="136dp"
+        tools:ignore="MissingConstraints" />
+
+    <!--
+     <Button
+        android:id="@+id/btnVuelos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VUELOS"
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="257dp"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btnCoches"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="COCHES"
+        tools:layout_editor_absoluteX="137dp"
+        tools:layout_editor_absoluteY="328dp"
+        tools:ignore="MissingConstraints" />-->
+
+
+</LinearLayout>

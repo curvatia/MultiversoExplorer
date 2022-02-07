@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment{
 
     private DashboardViewModel dashboardViewModel;
     private FragmentDashboardBinding binding;
@@ -39,7 +39,7 @@ public class DashboardFragment extends Fragment {
             DashboardFragment.this, new Observer<List<DashboardViajesRV>>() {
                 @Override
                 public void onChanged(List<DashboardViajesRV> dashboardViajesRVS) {
-                    binding.rvDashboard.setAdapter(new TicketsAdapter(dashboardViajesRVS));
+                    binding.rvDashboard.setAdapter(new TicketsAdapter(getContext(), dashboardViajesRVS));
                     int visibility = dashboardViajesRVS.isEmpty() ? View.VISIBLE : View.GONE;
                     binding.ivCrearTicket.setVisibility(visibility);
                     binding.tvCrearViaje.setVisibility(visibility);

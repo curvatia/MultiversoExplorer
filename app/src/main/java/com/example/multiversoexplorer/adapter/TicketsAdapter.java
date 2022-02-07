@@ -1,25 +1,30 @@
 package com.example.multiversoexplorer.adapter;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.multiversoexplorer.R;
 import com.example.multiversoexplorer.ui.dashboard.DashboardViajesRV;
-import com.example.multiversoexplorer.ui.dashboard.GuardarBilletesActivity;
+import com.example.multiversoexplorer.ui.dashboard.DialogosBottom;
 
 import java.util.List;
-
+import com.example.multiversoexplorer.ui.dashboard.DialogosBottom.dialogosBottomListener;
 public class TicketsAdapter  extends RecyclerView.Adapter<TicketsAdapter.TicketsViewHolder> {
     private List<DashboardViajesRV> lista;
+    private Context context;
 
-    public TicketsAdapter(List<DashboardViajesRV> lista) {
+    public TicketsAdapter(Context context, List<DashboardViajesRV> lista) {
+
         this.lista = lista;
+        this.context = context;
+
     }
 
     @NonNull
@@ -36,8 +41,11 @@ public class TicketsAdapter  extends RecyclerView.Adapter<TicketsAdapter.Tickets
         holder.tvFechaIda.setText(ticket.getFechaIda());
         holder.tvFechaVuelta.setText(ticket.getFechaVuelta());
         holder.cardview.setOnClickListener(view -> {
-            holder.cardview.getContext().startActivity(
-                    new Intent(holder.cardview.getContext(), GuardarBilletesActivity.class));
+            DialogosBottom dialogosBottom = new DialogosBottom();
+            dialogosBottom.show(((FragmentActivity)context).getSupportFragmentManager(),"ejemplo");
+            dialogosBottom.setmListener(holder);
+            //holder.cardview.getContext().startActivity(
+                    //new Intent(holder.cardview.getContext(), GuardarBilletesActivity.class));
         });
     }
 
@@ -46,7 +54,7 @@ public class TicketsAdapter  extends RecyclerView.Adapter<TicketsAdapter.Tickets
         return lista.size();
     }
 
-    public class TicketsViewHolder extends RecyclerView.ViewHolder {
+    public class TicketsViewHolder extends RecyclerView.ViewHolder implements DialogosBottom.dialogosBottomListener{
         private final TextView tvDestino;
         private final TextView tvFechaIda;
         private final TextView tvFechaVuelta;
@@ -58,6 +66,11 @@ public class TicketsAdapter  extends RecyclerView.Adapter<TicketsAdapter.Tickets
             tvFechaIda = itemView.findViewById(R.id.tvFechaIda);
             tvFechaVuelta = itemView.findViewById(R.id.tvFechaVuelta);
             cardview = itemView;
+        }
+
+        @Override
+        public void onButtonClicked(String text) {
+            String hola;
         }
     }
 }
