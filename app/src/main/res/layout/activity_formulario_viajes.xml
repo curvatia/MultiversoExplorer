@@ -25,7 +25,7 @@
         android:text="Destino" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/etDestino"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"

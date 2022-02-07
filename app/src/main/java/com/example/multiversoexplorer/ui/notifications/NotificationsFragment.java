@@ -57,6 +57,7 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser()!=null) {
+                    binding.rvFavoritos.setVisibility(View.VISIBLE);
                     binding.panelLoginFavoritos.setVisibility(View.GONE);
                 }
             }
@@ -73,12 +74,13 @@ public class NotificationsFragment extends Fragment {
         if(FirebaseAuth.getInstance().getCurrentUser()==null){
             binding.panelLoginFavoritos.setVisibility(View.VISIBLE);
             binding.btnLoginFavoritos.setOnClickListener(view -> startActivity(new Intent(getContext(), AuthActivity.class)));
+            binding.rvFavoritos.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
+        //binding = null;
     }
 }
