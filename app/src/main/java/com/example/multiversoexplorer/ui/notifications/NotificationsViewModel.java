@@ -81,8 +81,7 @@ public class NotificationsViewModel extends ViewModel {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {}
-                })
-                ;
+                });
     }
 
     private void añadirDesdeJson(String k){
@@ -110,6 +109,7 @@ public class NotificationsViewModel extends ViewModel {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                     String id = jsonObject.optString("id");
                     if(!id.equals(k)) continue;
+                    Long longId = Long.valueOf(jsonObject.opt("id").toString());
                     String title = jsonObject.getJSONObject("title").optString("rendered");
                     String informacion = jsonObject.getJSONObject("excerpt").optString("rendered");
                     String content = jsonObject.getJSONObject("content").optString("rendered");
@@ -118,6 +118,7 @@ public class NotificationsViewModel extends ViewModel {
                     String duracion = jsonObject.getJSONObject("duration").optString("days");
                     listaViajes.getValue().put(k,
                             new HomeViajesRV(
+                                    longId,
                                     title,
                                     informacion,
                                     content,

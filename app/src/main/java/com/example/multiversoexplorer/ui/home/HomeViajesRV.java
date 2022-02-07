@@ -3,12 +3,9 @@ package com.example.multiversoexplorer.ui.home;
 import java.io.Serializable;
 
 public class HomeViajesRV implements Serializable {
-
-    public String getContent() {
-        return Content;
-    }
-
+    private boolean esFavorito;
     private String Content;
+    private Long id;
     private String precio;
     private String dias;
     private String Fotos;
@@ -16,21 +13,23 @@ public class HomeViajesRV implements Serializable {
     private String Informacion;
 
     //CONSTRUCTOR 1
-    public HomeViajesRV() {
-
-    }
+    public HomeViajesRV() {}
 
     //CONSTRUCTOR 2
-    public HomeViajesRV(String viaje, String informacion, String content,String precio, String dias, String fotos) {
+    public HomeViajesRV(Long id, String viaje, String informacion, String content,String precio, String dias, String fotos) {
+        this.id = id;
         this.precio = precio;
         this.dias = dias;
         this.Fotos = fotos;
         this.Viaje = viaje;
         this.Content = content;
         this.Informacion = informacion;
+        this.esFavorito = false;
     }
 
-    //GETTER & SETTER
+    public Long getId() {return id;}
+    public void setId(Long id) {this.id = id;}
+
     public String getFotos() {
         return Fotos;
     }
@@ -55,10 +54,22 @@ public class HomeViajesRV implements Serializable {
     public String getPrecio() { return precio; }
     public String getDias() { return dias; }
 
+    public String getContent() {
+        return Content;
+    }
+
     @Override
     public String toString() {
         return "Viaje:"+ this.Viaje+
                 "\nDescripcion:"+ this.Informacion+
                 "\nFoto"+ this.Fotos;
+    }
+
+    public void setFavorito(boolean b) {
+        this.esFavorito = b;
+    }
+
+    public boolean isEsFavorito() {
+        return esFavorito;
     }
 }
