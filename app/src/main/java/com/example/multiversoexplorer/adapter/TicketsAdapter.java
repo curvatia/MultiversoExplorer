@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.content.Intent;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.multiversoexplorer.R;
 import com.example.multiversoexplorer.ui.dashboard.DashboardViajesRV;
 import com.example.multiversoexplorer.ui.dashboard.DialogosBottom;
+import com.example.multiversoexplorer.ui.dashboard.GuardarBilletesActivity;
 
 import java.util.List;
 import com.example.multiversoexplorer.ui.dashboard.DialogosBottom.dialogosBottomListener;
@@ -40,12 +42,18 @@ public class TicketsAdapter  extends RecyclerView.Adapter<TicketsAdapter.Tickets
         holder.tvDestino.setText(ticket.getDestino());
         holder.tvFechaIda.setText(ticket.getFechaIda());
         holder.tvFechaVuelta.setText(ticket.getFechaVuelta());
+        holder.cardview.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                DialogosBottom dialogosBottom = new DialogosBottom();
+                dialogosBottom.show(((FragmentActivity)context).getSupportFragmentManager(),"ejemplo");
+                dialogosBottom.setmListener(holder);
+                return true;
+            }
+        });
         holder.cardview.setOnClickListener(view -> {
-            DialogosBottom dialogosBottom = new DialogosBottom();
-            dialogosBottom.show(((FragmentActivity)context).getSupportFragmentManager(),"ejemplo");
-            dialogosBottom.setmListener(holder);
-            //holder.cardview.getContext().startActivity(
-                    //new Intent(holder.cardview.getContext(), GuardarBilletesActivity.class));
+            holder.cardview.getContext().startActivity(
+                    new Intent(holder.cardview.getContext(), GuardarBilletesActivity.class));
         });
     }
 
