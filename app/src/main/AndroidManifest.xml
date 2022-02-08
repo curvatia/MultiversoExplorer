@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MultiversoExplorer">
         <activity
+            android:name=".ui.ajustes.AjusteswebViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ajustes.SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings" />

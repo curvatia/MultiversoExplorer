@@ -54,6 +54,7 @@
         android:src="@drawable/ic_privacidad" />
 
     <TextView
+        android:id="@+id/tvPrivacidad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
