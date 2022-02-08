@@ -10,7 +10,7 @@ public class AjustesViewModel extends ViewModel {
 
     public AjustesViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("Mi cuenta Multiverso Explorer");
+        mText.setValue("Mi cuenta");
     }
     public LiveData<String> getText() {return mText;}
 
