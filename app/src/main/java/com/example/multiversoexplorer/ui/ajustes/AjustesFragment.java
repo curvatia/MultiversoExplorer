@@ -11,15 +11,23 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.multiversoexplorer.R;
 import com.example.multiversoexplorer.databinding.FragmentAjustesBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class AjustesFragment extends Fragment {
+//public class AjustesFragment extends Fragment
+public class AjustesFragment extends PreferenceFragmentCompat {
 
     private AjustesViewModel ajustesViewModel;
     private FragmentAjustesBinding binding;
+
+    //NEW FROM SETTINGS
+    @Override
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        setPreferencesFromResource(R.xml.root_preferences, rootKey);
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ajustesViewModel = new ViewModelProvider(this).get(AjustesViewModel.class);
