@@ -10,7 +10,7 @@ public class AjustesViewModel extends ViewModel {
 
     public AjustesViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("FRAGMENT PARA LOS AJUSTES");
+        mText.setValue("Mi cuenta");
     }
     public LiveData<String> getText() {return mText;}
 

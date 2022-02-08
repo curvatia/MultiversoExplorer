@@ -6,12 +6,19 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/multiverso_explorer_logo"
         android:label="@string/app_name"
         android:roundIcon="@drawable/multiverso_explorer_logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MultiversoExplorer"
-        android:hardwareAccelerated="true">
+        android:theme="@style/Theme.MultiversoExplorer">
+        <activity
+            android:name=".ui.ajustes.AjusteswebViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ajustes.SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_settings" />
         <activity
             android:name=".ui.home.HomeWebViewActivity"
             android:exported="false" />
