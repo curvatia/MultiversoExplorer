@@ -17,17 +17,18 @@ import com.example.multiversoexplorer.R;
 import com.example.multiversoexplorer.databinding.FragmentAjustesBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
+//public class AjustesFragment extends PreferenceFragmentCompat
 //public class AjustesFragment extends Fragment
-public class AjustesFragment extends PreferenceFragmentCompat {
+public class AjustesFragment extends Fragment {
 
     private AjustesViewModel ajustesViewModel;
     private FragmentAjustesBinding binding;
 
     //NEW FROM SETTINGS
-    @Override
+    /*@Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
-    }
+    }*/
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ajustesViewModel = new ViewModelProvider(this).get(AjustesViewModel.class);
