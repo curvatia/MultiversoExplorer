@@ -41,7 +41,8 @@ public class DialogosBottom extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dialogosbottom, container, false);
 
-        txtResultado = v.findViewById(R.id.txtResultado);
+        //LECTURA DEL QR
+        //txtResultado = v.findViewById(R.id.txtResultado);
 
         ImageButton imgVuelos = v.findViewById(R.id.imgVuelos);
         ImageButton imgCoches = v.findViewById(R.id.imgCoches);

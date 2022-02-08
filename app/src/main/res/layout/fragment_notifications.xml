@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="Inicia sesión para poder crear tu primer viaje" />
+            android:text="Inicia sesión para poder almacenar ofertas favoritas" />
 
         <Button
             android:id="@+id/btnLoginFavoritos"
