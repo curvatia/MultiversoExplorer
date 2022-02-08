@@ -42,12 +42,14 @@ public class NotificationsFragment extends Fragment {
 
         binding.rvFavoritos.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        notificationsViewModel.getListaViajes().observe(
-                NotificationsFragment.this, new Observer<ConcurrentHashMap<String, HomeViajesRV>>() {
+        notificationsViewModel.getListaFavoritos().observe(
+                NotificationsFragment.this, new Observer<List<Long>>() {
                     @Override
-                    public void onChanged(ConcurrentHashMap<String, HomeViajesRV> homeViajesRVS) {
-                        binding.rvFavoritos.setAdapter(
-                                new ReservasAdapter(new ArrayList<>(homeViajesRVS.values())));
+                    public void onChanged(List<Long> strings) {
+                        ReservasAdapter adapter = new ReservasAdapter(
+                                notificationsViewModel.getListaViajes(strings)
+                        );
+                        binding.rvFavoritos.setAdapter(adapter);
                     }
                 }
         );

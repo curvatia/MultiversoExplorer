@@ -2,6 +2,7 @@ package com.example.multiversoexplorer.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +18,16 @@ import com.example.multiversoexplorer.ui.home.HomeViajesActivity;
 import com.example.multiversoexplorer.ui.home.HomeViajesRV;
 import com.squareup.picasso.Picasso;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.List;
 
 public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.ReservasViewHolder> {
 
     private final List<HomeViajesRV> listaViajes;
-    public ReservasAdapter(List<HomeViajesRV>Listado) {this.listaViajes = Listado;}
+    public ReservasAdapter(List<HomeViajesRV> Listado) {
+        this.listaViajes = Listado;
+    }
 
     @Override
     public ReservasViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -48,6 +53,8 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
                             .putExtra("reservas",viaje)
             );
         });
+        if(viaje.isEsFavorito())
+            holder.Fblike.setColorFilter(Color.RED);
     }
 
     @Override
@@ -59,7 +66,7 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
         private final CardView CardViewHome;
         private final TextView Precio;
         private final TextView Dias;
-        private final View Fblike;
+        private final FloatingActionButton Fblike;
 
         public ReservasViewHolder(View view) {
             super(view);

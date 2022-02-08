@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment {
                 super.onItemRangeChanged(positionStart, itemCount);
                 if(payload == null) return;
                 HomeViajesRV viaje = (HomeViajesRV) payload;
-                publicarFavorito(viaje);
+                homeViewModel.publicarFavorito(viaje);
             }
         };
 
@@ -59,37 +59,19 @@ public class HomeFragment extends Fragment {
                 adapter.registerAdapterDataObserver(adapterDataObserver);
             }
         });
+        homeViewModel.getListaFavoritos().observe(getViewLifecycleOwner(), new Observer<List<Long>>() {
+            @Override
+            public void onChanged(List<Long> longs) {
+                ReservasAdapter adapter = new ReservasAdapter(
+                        homeViewModel.getListaViajes().getValue()
+                );
+                miReciclador.setAdapter(adapter);
+                adapter.registerAdapterDataObserver(adapterDataObserver);
+            }
+        });
 
         return root;
     }
-
-    private void publicarFavorito(HomeViajesRV viaje) {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        if(mAuth.getCurrentUser()!=null){
-            DatabaseReference reference = FirebaseDatabase.getInstance()
-                    .getReference("userdata/"+mAuth.getCurrentUser().getUid()+"/favoritos");
-            reference.addValueEventListener(new ValueEventListener() {
-                private ValueEventListener listener = this;
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    List<Long> datos = (List<Long>) snapshot.getValue();
-                    if(viaje.isEsFavorito()){
-                        if(!datos.contains(viaje.getId()))
-                            datos.add(viaje.getId());
-                    } else {
-                        if(datos.contains(viaje.getId()))
-                            datos.remove(datos.indexOf(viaje.getId()));
-                    }
-                    //reference.removeEventListener(listener);
-                    reference.setValue(datos);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {}
-            });
-        }
-    }
-
 
     @Override
     public void onDestroyView() {
