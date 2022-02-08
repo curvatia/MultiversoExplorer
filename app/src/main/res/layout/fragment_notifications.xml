@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.notifications.NotificationsFragment"
-    android:background="@color/multiverso_4">
+    android:background="@color/multiverso_1">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFavoritos"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="inicia sesion para poder crear tu primer viaje" />
+            android:text="Inicia sesión para poder crear tu primer viaje" />
 
         <Button
             android:id="@+id/btnLoginFavoritos"

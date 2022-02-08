@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/multiverso_7"
+    android:background="@color/multiverso_1"
     tools:context=".ui.dashboard.DashboardFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="inicia sesion para poder crear tu primer viaje" />
+            android:text="Inicia sesión para poder crear tu primer viaje" />
 
         <Button
             android:id="@+id/button"

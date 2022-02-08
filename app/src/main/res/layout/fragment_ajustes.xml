@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.ajustes.AjustesFragment"
-    android:background="@color/multiverso_3">
+    android:background="@color/multiverso_1">
 
     <TextView
         android:id="@+id/text_ajustes"
@@ -26,7 +26,7 @@
         android:id="@+id/btnSingOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="cerrar sesion"
+        android:text="cerrar sesión"
         tools:layout_editor_absoluteX="214dp"
         tools:layout_editor_absoluteY="49dp" />
 
