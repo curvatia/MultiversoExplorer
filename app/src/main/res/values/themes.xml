@@ -6,8 +6,8 @@
         <item name="colorPrimaryVariant">@color/multiverso_9</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary"> @color/multiverso_8</item>
-        <item name="colorSecondaryVariant">@color/multiverso_6</item>
+        <item name="colorSecondary"> @color/multiverso_6</item>
+        <item name="colorSecondaryVariant">@color/multiverso_3</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>

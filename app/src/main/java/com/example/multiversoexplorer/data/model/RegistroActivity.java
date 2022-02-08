@@ -67,7 +67,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
     private void registrarUsuario(){
 
         if(!cbDatos.isChecked() || !cbTerminos.isChecked()){
-            Toast.makeText(this, "Debes aceptar los terminos y condiciones",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Debes aceptar los términos y condiciones",Toast.LENGTH_LONG).show();
             return;
         }
 
