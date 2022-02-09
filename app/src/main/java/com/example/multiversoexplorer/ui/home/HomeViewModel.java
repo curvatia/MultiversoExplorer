@@ -49,6 +49,9 @@ public class HomeViewModel extends ViewModel {
 
         listaFavoritos = new MutableLiveData<List<Long>>(new ArrayList<>());
         mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() != null) {
+            observarFavoritos();
+        }
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -68,21 +71,17 @@ public class HomeViewModel extends ViewModel {
     public MutableLiveData<List<Long>> getListaFavoritos() {return listaFavoritos;}
 
     public void observarFavoritos(){
-        DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("userdata/"+ mAuth.getCurrentUser().getUid()+"/favoritos");
+        DatabaseReference refUserdata = FirebaseDatabase.getInstance().getReference().child("userdata");
+        DatabaseReference refUID = refUserdata.child(mAuth.getCurrentUser().getUid());
+        DatabaseReference reference = refUID.child("favoritos");
+
         reference.addValueEventListener(new ValueEventListener() {
             private ValueEventListener listener = this;
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Long> datos = (List<Long>) snapshot.getValue();
-                listaFavoritos.setValue(datos);
-                List<HomeViajesRV> viajesLocal = listaViajes.getValue();
-                viajesLocal.stream()
-                    .forEach(homeViajesRV -> {
-                        if(datos.contains(homeViajesRV.getId()))
-                            homeViajesRV.setFavorito(true);
-                    });
-                listaViajes.setValue(viajesLocal);
+                if(!snapshot.exists()) return;
+                List<Long> idsFavsRemoto = (List<Long>) snapshot.getValue();
+                listaFavoritos.setValue(idsFavsRemoto);
             }
 
             @Override
@@ -91,17 +90,36 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void publicarFavorito(HomeViajesRV viaje) {
-        DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("userdata/"+ mAuth.getCurrentUser().getUid()+"/favoritos");
+        DatabaseReference refUserdata = FirebaseDatabase.getInstance().getReference().child("userdata");
+        DatabaseReference refUID = refUserdata.child(mAuth.getCurrentUser().getUid());
+        DatabaseReference reference = refUID.child("favoritos");
+
         List<Long> favsLocal = listaFavoritos.getValue();
-        if(viaje.isEsFavorito()){
-            if(!favsLocal.contains(viaje.getId()))
-                favsLocal.add(viaje.getId());
-        } else {
-            if(favsLocal.contains(viaje.getId()))
-                favsLocal.remove(favsLocal.indexOf(viaje.getId()));
+        if(viaje.isEsFavorito() && favsLocal.contains(viaje.getId()))
+            return;
+        if(viaje.isEsFavorito())
+            favsLocal.add(viaje.getId());
+        else {
+            int i = favsLocal.indexOf(viaje.getId());
+            if(i >= 0)
+                favsLocal.remove(i);
         }
         reference.setValue(favsLocal);
+    }
+
+    public List<HomeViajesRV> getListaViajesNuevos(List<HomeViajesRV> viajes, List<Long> nuevosFavs) {
+        List<HomeViajesRV> ret = new ArrayList<>(viajes);
+        ret.stream()
+                .map(homeViajesRV -> {
+                    if(nuevosFavs.contains(homeViajesRV.getId()))
+                        homeViajesRV.setFavorito(true);
+                    else
+                        homeViajesRV.setFavorito(false);
+                    return homeViajesRV;
+                })
+                .filter(homeViajesRV -> nuevosFavs.contains(homeViajesRV.getId()))
+                .collect(Collectors.toList());
+        return ret;
     }
 
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
@@ -148,7 +166,7 @@ public class HomeViewModel extends ViewModel {
                         e.printStackTrace();
                     }
                 }
-                listaViajes.setValue(lista);
+                listaViajes.setValue(getListaViajesNuevos(lista, listaFavoritos.getValue()));
             } catch (Exception e) {
                 e.printStackTrace();
             }

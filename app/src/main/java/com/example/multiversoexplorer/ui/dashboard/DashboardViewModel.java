@@ -26,11 +26,13 @@ public class DashboardViewModel extends ViewModel {
             FirebaseDatabase.getInstance().getReference();
 
     public void observarViajes(){
-        FirebaseDatabase.getInstance()
-                .getReference("userdata/"+mAuth.getCurrentUser().getUid()+"/viajesCreados")
-                .addChildEventListener(new ChildEventListener() {
+        DatabaseReference refUserdata = FirebaseDatabase.getInstance().getReference().child("userdata");
+        DatabaseReference refUID = refUserdata.child(mAuth.getCurrentUser().getUid());
+        DatabaseReference reference = refUID.child("viajesCreados");
+        reference.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        if(!snapshot.exists()) return;
                         Map<String,Object> ticket = (Map<String,Object>) snapshot.getValue();
                         listaViajesCreados.getValue().add(
                                 new DashboardViajesRV(

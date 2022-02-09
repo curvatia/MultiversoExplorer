@@ -65,11 +65,13 @@ public class NotificationsViewModel extends ViewModel {
     }
 
     private void observarIdsFavoritos(){
-        FirebaseDatabase.getInstance()
-                .getReference("userdata/"+mAuth.getCurrentUser().getUid()+"/favoritos")
-                .addValueEventListener(new ValueEventListener() {
+        DatabaseReference refUserdata = FirebaseDatabase.getInstance().getReference().child("userdata");
+        DatabaseReference refUID = refUserdata.child(mAuth.getCurrentUser().getUid());
+        DatabaseReference reference = refUID.child("favoritos");
+        reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(!snapshot.exists()) return;
                         List<Long> idsFavsRemoto = (List<Long>) snapshot.getValue();
                         listaFavoritos.setValue(idsFavsRemoto);
                     }

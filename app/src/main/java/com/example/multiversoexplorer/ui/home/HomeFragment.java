@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -30,6 +31,7 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
     private RecyclerView miReciclador;
+    private ReservasAdapter adapter = new ReservasAdapter(new ArrayList<>());
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -50,25 +52,33 @@ public class HomeFragment extends Fragment {
                 homeViewModel.publicarFavorito(viaje);
             }
         };
-
-        homeViewModel.getListaViajes().observe(getViewLifecycleOwner(), new Observer<List<HomeViajesRV>>() {
-            @Override
-            public void onChanged(List<HomeViajesRV> homeViajesRVS) {
-                ReservasAdapter adapter = new ReservasAdapter(homeViajesRVS);
-                miReciclador.setAdapter(adapter);
-                adapter.registerAdapterDataObserver(adapterDataObserver);
-            }
-        });
+        adapter.registerAdapterDataObserver(adapterDataObserver);
+        miReciclador.setAdapter(adapter);
         homeViewModel.getListaFavoritos().observe(getViewLifecycleOwner(), new Observer<List<Long>>() {
             @Override
             public void onChanged(List<Long> longs) {
+                adapter.setListaViajes(
+                        homeViewModel.getListaViajesNuevos(
+                                homeViewModel.getListaViajes().getValue(),
+                                longs));
+            }
+        });
+        homeViewModel.getListaViajes().observe(getViewLifecycleOwner(), new Observer<List<HomeViajesRV>>() {
+            @Override
+            public void onChanged(List<HomeViajesRV> homeViajesRVS) {
+                adapter.setListaViajes(homeViewModel.getListaViajes().getValue());
+            }
+        });
+/*        homeViewModel.getListaFavoritos().observe(getViewLifecycleOwner(), new Observer<List<Long>>() {
+            @Override
+            public void onChanged(List<Long> longs) {
                 ReservasAdapter adapter = new ReservasAdapter(
-                        homeViewModel.getListaViajes().getValue()
+                        homeViewModel.getListaViajesNuevos(longs)
                 );
                 miReciclador.setAdapter(adapter);
                 adapter.registerAdapterDataObserver(adapterDataObserver);
             }
-        });
+        });*/
 
         return root;
     }

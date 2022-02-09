@@ -7,11 +7,11 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\curvatia\.android\avd\Pixel_3_API_30.avd" />
+            <value value="$PROJECT_DIR$/../.android/avd/Pixel_XL_API_30.avd" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-02-08T10:28:22.155514900Z" />
+    <timeTargetWasSelectedWithDropDown value="2022-02-09T16:53:08.491106Z" />
   </component>
 </project>

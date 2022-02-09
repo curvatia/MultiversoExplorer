@@ -24,7 +24,7 @@ import java.util.List;
 
 public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.ReservasViewHolder> {
 
-    private final List<HomeViajesRV> listaViajes;
+    private List<HomeViajesRV> listaViajes;
     public ReservasAdapter(List<HomeViajesRV> Listado) {
         this.listaViajes = Listado;
     }
@@ -84,4 +84,12 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
         public CardView getCardViewHome() {return CardViewHome;}
     }
 
+    public List<HomeViajesRV> getListaViajes() {
+        return listaViajes;
+    }
+
+    public void setListaViajes(List<HomeViajesRV> listaViajes) {
+        this.listaViajes = listaViajes;
+        notifyDataSetChanged();
+    }
 }

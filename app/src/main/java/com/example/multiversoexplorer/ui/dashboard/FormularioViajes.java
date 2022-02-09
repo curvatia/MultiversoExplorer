@@ -58,8 +58,9 @@ public class FormularioViajes extends AppCompatActivity implements DatePickerDia
     private void guardarDatos(){
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser()==null) return;
-        DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("userdata/" + mAuth.getCurrentUser().getUid() + "/viajesCreados");
+        DatabaseReference refUserdata = FirebaseDatabase.getInstance().getReference().child("userdata");
+        DatabaseReference refUID = refUserdata.child(mAuth.getCurrentUser().getUid());
+        DatabaseReference reference = refUID.child("viajesCreados");
         reference.addValueEventListener(new ValueEventListener() {
             private String Destino = etDestino.getText().toString();
             private String Ida = etFechaIda.getText().toString();
@@ -67,6 +68,7 @@ public class FormularioViajes extends AppCompatActivity implements DatePickerDia
             private ValueEventListener listener = this;
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.exists()) return;
                 List<HashMap<String, String>> viajes = (List<HashMap<String, String>>)snapshot.getValue();
                 viajes.add(new HashMap<String, String>(){{
                     put("destino",Destino);
