@@ -55,6 +55,8 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
         });
         if(viaje.isEsFavorito())
             holder.Fblike.setColorFilter(Color.RED);
+        else
+            holder.Fblike.setColorFilter(Color.WHITE);
     }
 
     @Override

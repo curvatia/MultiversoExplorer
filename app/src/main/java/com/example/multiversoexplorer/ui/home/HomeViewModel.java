@@ -32,30 +32,35 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class HomeViewModel extends ViewModel {
-
-    private final MutableLiveData<List<Long>> listaFavoritos;
     private final FirebaseAuth mAuth;
+    private DatabaseReference refUserdata;
+    private DatabaseReference refUID;
+    private DatabaseReference reference;
+    private final MutableLiveData<List<Long>> listaFavoritos;
     private MutableLiveData<String> mText;
     private MutableLiveData<List<HomeViajesRV>> listaViajes;
 
     public HomeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("FRAGMENT DE VIAJES EN CARDVIEW Y ELEGIR FAVORITOS");
+        mAuth = FirebaseAuth.getInstance();
+        refUserdata = FirebaseDatabase.getInstance().getReference().child("userdata");
         listaViajes = new MutableLiveData<>(new ArrayList<>());
+        listaFavoritos = new MutableLiveData<List<Long>>(new ArrayList<>());
         try {
             String url = "https://www.multiversoexplorer.com/wp-json/wp/v2/trip";
             new HttpAsyncTask().execute(url);
         } catch (Exception e) {}
 
-        listaFavoritos = new MutableLiveData<List<Long>>(new ArrayList<>());
-        mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() != null) {
+            refUID = refUserdata.child(mAuth.getCurrentUser().getUid());
+            reference = refUID.child("favoritos");
             observarFavoritos();
         }
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser()!=null) {
+                    refUID = refUserdata.child(mAuth.getCurrentUser().getUid());
+                    reference = refUID.child("favoritos");
                     observarFavoritos();
                 }
             }
@@ -71,17 +76,18 @@ public class HomeViewModel extends ViewModel {
     public MutableLiveData<List<Long>> getListaFavoritos() {return listaFavoritos;}
 
     public void observarFavoritos(){
-        DatabaseReference refUserdata = FirebaseDatabase.getInstance().getReference().child("userdata");
-        DatabaseReference refUID = refUserdata.child(mAuth.getCurrentUser().getUid());
-        DatabaseReference reference = refUID.child("favoritos");
-
         reference.addValueEventListener(new ValueEventListener() {
-            private ValueEventListener listener = this;
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(!snapshot.exists()) return;
-                List<Long> idsFavsRemoto = (List<Long>) snapshot.getValue();
-                listaFavoritos.setValue(idsFavsRemoto);
+                if(!snapshot.exists()) {
+                    listaFavoritos.setValue(new ArrayList<>());
+                    listaViajes.setValue(listaViajes.getValue());
+                } else {
+                    List<Long> idsFavsRemoto = (List<Long>) snapshot.getValue();
+                    listaFavoritos.setValue(idsFavsRemoto);
+                    List<HomeViajesRV> viajesLocal = listaViajes.getValue();
+                    listaViajes.setValue(getListaViajesNuevos(viajesLocal, idsFavsRemoto));
+                }
             }
 
             @Override
@@ -90,10 +96,6 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void publicarFavorito(HomeViajesRV viaje) {
-        DatabaseReference refUserdata = FirebaseDatabase.getInstance().getReference().child("userdata");
-        DatabaseReference refUID = refUserdata.child(mAuth.getCurrentUser().getUid());
-        DatabaseReference reference = refUID.child("favoritos");
-
         List<Long> favsLocal = listaFavoritos.getValue();
         if(viaje.isEsFavorito() && favsLocal.contains(viaje.getId()))
             return;

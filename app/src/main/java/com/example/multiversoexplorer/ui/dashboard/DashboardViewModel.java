@@ -12,67 +12,65 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class DashboardViewModel extends ViewModel {
-
-    private MutableLiveData<String> mText;
     private MutableLiveData<List<DashboardViajesRV>> listaViajesCreados;
     private FirebaseAuth mAuth;
-    DatabaseReference miDatabaseReference=
-            FirebaseDatabase.getInstance().getReference();
-
-    public void observarViajes(){
-        DatabaseReference refUserdata = FirebaseDatabase.getInstance().getReference().child("userdata");
-        DatabaseReference refUID = refUserdata.child(mAuth.getCurrentUser().getUid());
-        DatabaseReference reference = refUID.child("viajesCreados");
-        reference.addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                        if(!snapshot.exists()) return;
-                        Map<String,Object> ticket = (Map<String,Object>) snapshot.getValue();
-                        listaViajesCreados.getValue().add(
-                                new DashboardViajesRV(
-                                        ticket.get("img").toString(),
-                                        ticket.get("destino").toString(),
-                                        ticket.get("fechaIda").toString(),
-                                        ticket.get("fechaVuelta").toString()));
-                        listaViajesCreados.setValue(listaViajesCreados.getValue());
-                    }
-                    @Override
-                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
-                    @Override
-                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
-                    @Override
-                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {}
-                });
-    }
+    private DatabaseReference refUserdata;
+    private DatabaseReference refUID;
+    private DatabaseReference reference;
 
     public DashboardViewModel() {
-        mText = new MutableLiveData<>();
+        refUserdata = FirebaseDatabase.getInstance().getReference().child("userdata");
         listaViajesCreados = new MutableLiveData<>(new ArrayList<>());
         mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser()!=null) {
+            refUID = refUserdata.child(mAuth.getCurrentUser().getUid());
+            reference = refUID.child("viajesCreados");
+            observarViajes();
+        }
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser()!=null) {
+                    refUID = refUserdata.child(mAuth.getCurrentUser().getUid());
+                    reference = refUID.child("viajesCreados");
                     observarViajes();
                 }
             }
         });
-
-        mText.setValue("FRAGMENT PARA CREAR VIAJES FORMULARIO FECHAS BOTON+ Y QR VUELOS");
-
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public void observarViajes(){
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.exists()) {
+                    listaViajesCreados.setValue(new ArrayList<>());
+                } else {
+                    List<DashboardViajesRV> viajesLocal = new ArrayList<>();
+                    List<Map<String, String>> ticketList = (List<Map<String, String>>) snapshot.getValue();
+                    for (Map<String, String> ticket : ticketList) {
+                        viajesLocal.add(new DashboardViajesRV(
+                                ticket.get("img"),
+                                ticket.get("destino"),
+                                ticket.get("fechaIda"),
+                                ticket.get("fechaVuelta")));
+                    }
+                    listaViajesCreados.setValue(viajesLocal);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
     }
+
     public LiveData<List<DashboardViajesRV>> getListaViajesCreados() {
         return listaViajesCreados;
     }

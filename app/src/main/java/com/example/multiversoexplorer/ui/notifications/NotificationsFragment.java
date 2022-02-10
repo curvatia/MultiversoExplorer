@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.multiversoexplorer.R;
 import com.example.multiversoexplorer.adapter.ReservasAdapter;
@@ -33,6 +34,7 @@ public class NotificationsFragment extends Fragment {
     private NotificationsViewModel notificationsViewModel;
     private FragmentNotificationsBinding binding;
     private FirebaseAuth mAuth;
+    private ReservasAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         notificationsViewModel = new ViewModelProvider(this).get(NotificationsViewModel.class);
@@ -41,18 +43,25 @@ public class NotificationsFragment extends Fragment {
         View root = binding.getRoot();
 
         binding.rvFavoritos.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        adapter = new ReservasAdapter(new ArrayList<>());
         notificationsViewModel.getListaFavoritos().observe(
-                NotificationsFragment.this, new Observer<List<Long>>() {
+                getViewLifecycleOwner(), new Observer<List<Long>>() {
                     @Override
                     public void onChanged(List<Long> strings) {
-                        ReservasAdapter adapter = new ReservasAdapter(
-                                notificationsViewModel.getListaViajes(strings)
-                        );
+                        adapter.setListaViajes(notificationsViewModel.getListaViajes(strings));
                         binding.rvFavoritos.setAdapter(adapter);
                     }
                 }
         );
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeChanged(int positionStart, int itemCount, @Nullable Object payload) {
+                super.onItemRangeChanged(positionStart, itemCount, payload);
+                if(payload == null) return;
+                HomeViajesRV viaje = (HomeViajesRV) payload;
+                notificationsViewModel.publicarFavorito(viaje);
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {

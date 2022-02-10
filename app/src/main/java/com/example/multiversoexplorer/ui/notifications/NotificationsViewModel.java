@@ -1,20 +1,14 @@
 package com.example.multiversoexplorer.ui.notifications;
 
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.multiversoexplorer.adapter.ReservasAdapter;
-import com.example.multiversoexplorer.ui.dashboard.DashboardViajesRV;
-import com.example.multiversoexplorer.ui.home.HomeFragment;
 import com.example.multiversoexplorer.ui.home.HomeViajesRV;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,7 +16,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -31,8 +24,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -40,16 +31,14 @@ public class NotificationsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
     private MutableLiveData<List<Long>> listaFavoritos;
-    private ConcurrentHashMap<Long, HomeViajesRV> listaViajes;
-
+    private ConcurrentHashMap<Long, HomeViajesRV> viajesMap;
     private FirebaseAuth mAuth;
-    private DatabaseReference miDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
     public NotificationsViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("FRAGMENT DE VIAJES FAVORITOS DESDE HOME");
         listaFavoritos = new MutableLiveData<List<Long>>(new ArrayList<>());
-        listaViajes = new ConcurrentHashMap<>();
+        viajesMap = new ConcurrentHashMap<>();
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
@@ -71,14 +60,35 @@ public class NotificationsViewModel extends ViewModel {
         reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(!snapshot.exists()) return;
-                        List<Long> idsFavsRemoto = (List<Long>) snapshot.getValue();
-                        listaFavoritos.setValue(idsFavsRemoto);
+                        if(!snapshot.exists()) {
+                            listaFavoritos.setValue(new ArrayList<>());
+                        } else {
+                            List<Long> idsFavsRemoto = (List<Long>) snapshot.getValue();
+                            listaFavoritos.setValue(idsFavsRemoto);
+                        }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {}
                 });
+    }
+
+    public void publicarFavorito(HomeViajesRV viaje) {
+        DatabaseReference refUserdata = FirebaseDatabase.getInstance().getReference().child("userdata");
+        DatabaseReference refUID = refUserdata.child(mAuth.getCurrentUser().getUid());
+        DatabaseReference reference = refUID.child("favoritos");
+
+        List<Long> favsLocal = listaFavoritos.getValue();
+        if(viaje.isEsFavorito() && favsLocal.contains(viaje.getId()))
+            return;
+        if(viaje.isEsFavorito())
+            favsLocal.add(viaje.getId());
+        else {
+            int i = favsLocal.indexOf(viaje.getId());
+            if(i >= 0)
+                favsLocal.remove(i);
+        }
+        reference.setValue(favsLocal);
     }
 
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
@@ -101,7 +111,7 @@ public class NotificationsViewModel extends ViewModel {
         protected void onPostExecute(String result) {
             try {
                 ponerEnListaDesdeJson(result);
-                NotificationsViewModel.this.listaFavoritos.setValue(listaFavoritos.getValue());
+                listaFavoritos.setValue(listaFavoritos.getValue());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -116,8 +126,7 @@ public class NotificationsViewModel extends ViewModel {
     }
 
     public List<HomeViajesRV> getListaViajes(List<Long> nuevosFavs) {
-        List<Long> favoritos = listaFavoritos.getValue();
-        List<HomeViajesRV> ret = listaViajes.values()
+        List<HomeViajesRV> ret = viajesMap.values()
                 .stream()
                 .map(homeViajesRV -> {
                     if(nuevosFavs.contains(homeViajesRV.getId()))
@@ -144,7 +153,7 @@ public class NotificationsViewModel extends ViewModel {
                 String urlImg = jsonObject.getJSONObject("featured_image").optString("file");
                 String precio = jsonObject.optString("price");
                 String duracion = jsonObject.getJSONObject("duration").optString("days");
-                listaViajes.put(longId,
+                viajesMap.put(longId,
                         new HomeViajesRV(
                                 longId,
                                 title,
@@ -154,9 +163,7 @@ public class NotificationsViewModel extends ViewModel {
                                 duracion,
                                 "https://www.multiversoexplorer.com/wp-content/uploads/" + urlImg));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {}
     }
 
     public void pedirJSON() {
