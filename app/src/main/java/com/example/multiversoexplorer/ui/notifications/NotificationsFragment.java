@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,19 +14,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.multiversoexplorer.R;
 import com.example.multiversoexplorer.adapter.ReservasAdapter;
 import com.example.multiversoexplorer.data.model.AuthActivity;
 import com.example.multiversoexplorer.databinding.FragmentNotificationsBinding;
 import com.example.multiversoexplorer.ui.home.HomeViajesRV;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class NotificationsFragment extends Fragment {
 
@@ -44,12 +38,13 @@ public class NotificationsFragment extends Fragment {
 
         binding.rvFavoritos.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ReservasAdapter(new ArrayList<>());
+        binding.rvFavoritos.setAdapter(adapter);
         notificationsViewModel.getListaFavoritos().observe(
                 getViewLifecycleOwner(), new Observer<List<Long>>() {
                     @Override
                     public void onChanged(List<Long> strings) {
                         adapter.setListaViajes(notificationsViewModel.getListaViajes(strings));
-                        binding.rvFavoritos.setAdapter(adapter);
+                        mostrarCuandoVacio();
                     }
                 }
         );
@@ -77,6 +72,11 @@ public class NotificationsFragment extends Fragment {
         return root;
     }
 
+    private void mostrarCuandoVacio() {
+        int visibility = adapter.getListaViajes().isEmpty() ? View.VISIBLE : View.GONE;
+        binding.ivCrearTicket.setVisibility(visibility);
+        binding.tvCrearViaje.setVisibility(visibility);
+    }
 
 
     @Override
@@ -87,6 +87,7 @@ public class NotificationsFragment extends Fragment {
             binding.btnLoginFavoritos.setOnClickListener(view -> startActivity(new Intent(getContext(), AuthActivity.class)));
             binding.panelNuevosFavoritos.setVisibility(View.GONE);
         }
+        mostrarCuandoVacio();
     }
 
     @Override
