@@ -36,7 +36,7 @@ public class DashboardFragment extends Fragment{
         binding.rvDashboard.setLayoutManager(new LinearLayoutManager(getContext()));
 
         dashboardViewModel.getListaViajesCreados().observe(
-            DashboardFragment.this, new Observer<List<DashboardViajesRV>>() {
+            getViewLifecycleOwner(), new Observer<List<DashboardViajesRV>>() {
                 @Override
                 public void onChanged(List<DashboardViajesRV> dashboardViajesRVS) {
                     binding.rvDashboard.setAdapter(new TicketsAdapter(getContext(), dashboardViajesRVS));
@@ -68,6 +68,7 @@ public class DashboardFragment extends Fragment{
     public void onResume() {
         super.onResume();
         if(FirebaseAuth.getInstance().getCurrentUser()==null){
+            binding.panelViajesNuevos.setVisibility(View.GONE);
             binding.panelLogin.setVisibility(View.VISIBLE);
             binding.button.setOnClickListener(view -> startActivity(new Intent(getContext(), AuthActivity.class)));
         }
