@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.multiversoexplorer.R;
+import com.example.multiversoexplorer.data.model.AuthActivity;
 import com.example.multiversoexplorer.databinding.FragmentAjustesBinding;
 import com.example.multiversoexplorer.ui.dashboard.WebviewActivity;
 import com.example.multiversoexplorer.ui.home.HomeViewModel;
@@ -25,41 +27,16 @@ import com.google.firebase.auth.FirebaseAuth;
 //public class AjustesFragment extends Fragment
 public class AjustesFragment extends PreferenceFragmentCompat  {
 
-    private AjustesViewModel ajustesViewModel;
-    private FragmentAjustesBinding binding;
-
-    private View privacidad;
-
+    UserPreference usuarioPref;
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
+        usuarioPref = findPreference("usuarioPref");
+        usuarioPref.setIniciarSesionListener(view -> {
+            startActivity(new Intent(getContext(), AuthActivity.class));
+        });
     }
 
- /*   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        *//*privacidad = (R.id.tvPrivacidad);
-        privacidad.setOnClickListener(view -> {
-            startActivity(new Intent(this, AjusteswebViewActivity.class));
-        });*//*
-
-        ajustesViewModel = new ViewModelProvider(this).get(AjustesViewModel.class);
-
-        binding = FragmentAjustesBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        binding.btnSingOut.setOnClickListener(view -> {
-            FirebaseAuth mAuth = FirebaseAuth.getInstance();
-            mAuth.signOut();
-        });
-
-        final TextView textView = binding.textAjustes;
-        ajustesViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) { textView.setText(s); }
-        });
-        return  root;
-
-    }*/
     @Override
     public void onDestroyView() {
         super.onDestroyView();

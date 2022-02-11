@@ -1,4 +1,7 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.example.multiversoexplorer.ui.ajustes.UserPreference
+        app:key="usuarioPref"
+        app:layout="@layout/avatar_preference"/>
 
     <PreferenceCategory app:title="@string/messages_header"
         app:icon="@drawable/ic_map">
