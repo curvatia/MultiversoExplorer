@@ -23,26 +23,24 @@ import com.google.firebase.auth.FirebaseAuth;
 
 //public class AjustesFragment extends PreferenceFragmentCompat
 //public class AjustesFragment extends Fragment
-public class AjustesFragment extends Fragment  {
+public class AjustesFragment extends PreferenceFragmentCompat  {
 
     private AjustesViewModel ajustesViewModel;
     private FragmentAjustesBinding binding;
 
     private View privacidad;
 
-
-    //NEW FROM SETTINGS
-    /*@Override
+    @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
-    }*/
+    }
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+ /*   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        /*privacidad = (R.id.tvPrivacidad);
+        *//*privacidad = (R.id.tvPrivacidad);
         privacidad.setOnClickListener(view -> {
             startActivity(new Intent(this, AjusteswebViewActivity.class));
-        });*/
+        });*//*
 
         ajustesViewModel = new ViewModelProvider(this).get(AjustesViewModel.class);
 
@@ -61,7 +59,7 @@ public class AjustesFragment extends Fragment  {
         });
         return  root;
 
-    }
+    }*/
     @Override
     public void onDestroyView() {
         super.onDestroyView();
