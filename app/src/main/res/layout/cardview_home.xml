@@ -37,19 +37,19 @@
 
                 <TextView
                     android:id="@+id/tvTitulo"
-                    android:textColor="#FBFBFB"
-                    android:background="#30000000"
-                    android:shadowColor="#7F000000"
-                    android:shadowDx="0"
-                    android:shadowDy="2"
-                    android:shadowRadius="5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/idImg"
                     android:layout_marginTop="5dp"
-                    android:padding="5dp"
+                    android:background="#30000000"
+                    android:padding="15dp"
+                    android:shadowColor="#7F000000"
+                    android:shadowDx="0"
+                    android:shadowDy="2"
+                    android:shadowRadius="5"
                     android:text="Titulo"
-                    android:textSize="26dp"/>
+                    android:textColor="#FBFBFB"
+                    android:textSize="26dp" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fbLike"
