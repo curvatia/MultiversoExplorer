@@ -136,7 +136,9 @@ public class HomeViewModel extends ViewModel {
                 String res = bis.lines().collect(Collectors.joining("\n"));
                 bis.close();
                 return res;
-            } catch (Exception e) {}
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return "";
         }
 
