@@ -20,6 +20,7 @@ public class BottomNavActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.Theme_MultiversoExplorer);
         super.onCreate(savedInstanceState);
 
         binding = ActivityBottomNavBinding.inflate(getLayoutInflater());
@@ -34,6 +35,7 @@ public class BottomNavActivity extends AppCompatActivity implements View.OnClick
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_bottom_nav);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
     }
 
     @Override

@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/multiverso_explorer_logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MultiversoExplorer">
+        android:theme="@style/Theme.SplashMultiverso">
         <activity
             android:name=".ui.ajustes.AjusteswebViewActivity"
             android:exported="false" />
@@ -52,16 +52,18 @@
             android:exported="true" />
         <activity
             android:name=".BottomNavActivity"
-            android:exported="true" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:parentActivityName=".BottomNavActivity">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:parentActivityName=".BottomNavActivity">
+
         </activity>
     </application>
 
