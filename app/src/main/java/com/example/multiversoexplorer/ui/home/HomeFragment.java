@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,6 +55,8 @@ public class HomeFragment extends Fragment {
         };
         adapter.registerAdapterDataObserver(adapterDataObserver);
         miReciclador.setAdapter(adapter);
+        ViewGroup parent = (ViewGroup) root;
+        postponeEnterTransition();
         homeViewModel.getListaFavoritos().observe(getViewLifecycleOwner(), new Observer<List<Long>>() {
             @Override
             public void onChanged(List<Long> longs) {
@@ -61,12 +64,30 @@ public class HomeFragment extends Fragment {
                         homeViewModel.getListaViajesNuevos(
                                 homeViewModel.getListaViajes().getValue(),
                                 longs));
+                parent.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                    @Override
+                    public boolean onPreDraw(){
+                        parent.getViewTreeObserver()
+                                .removeOnPreDrawListener(this);
+                        startPostponedEnterTransition();
+                        return true;
+                    }
+                });
             }
         });
         homeViewModel.getListaViajes().observe(getViewLifecycleOwner(), new Observer<List<HomeViajesRV>>() {
             @Override
             public void onChanged(List<HomeViajesRV> homeViajesRVS) {
                 adapter.setListaViajes(homeViewModel.getListaViajes().getValue());
+                parent.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                    @Override
+                    public boolean onPreDraw(){
+                        parent.getViewTreeObserver()
+                                .removeOnPreDrawListener(this);
+                        startPostponedEnterTransition();
+                        return true;
+                    }
+                });
             }
         });
 /*        homeViewModel.getListaFavoritos().observe(getViewLifecycleOwner(), new Observer<List<Long>>() {

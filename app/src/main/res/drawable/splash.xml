@@ -1,13 +1,4 @@
-<!--
-<animated-rotate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/ic_map"
-    android:pivotX="50%"
-    android:pivotY="50%"/>
-
--->
-
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/multiverso_explorer_logo"
-        android:gravity="center"/>
+    <item android:drawable="@drawable/multiverso_explorer1"/>
 </layer-list>

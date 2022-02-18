@@ -9,7 +9,11 @@
         android:id="@+id/navigation_ofertas"
         android:name="com.example.multiversoexplorer.ui.home.HomeFragment"
         android:label="Ofertas"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_ofertas_to_detallesViajeFragment"
+            app:destination="@id/detallesViajeFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_viajes"
@@ -28,4 +32,9 @@
         android:name="com.example.multiversoexplorer.ui.ajustes.AjustesFragment"
         android:label="Ajustes"
         tools:layout="@layout/fragment_ajustes" />
+    <fragment
+        android:id="@+id/detallesViajeFragment"
+        android:name="com.example.multiversoexplorer.ui.home.DetallesViajeFragment"
+        android:label="fragment_detalles_viaje"
+        tools:layout="@layout/fragment_detalles_viaje" />
 </navigation>

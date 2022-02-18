@@ -9,8 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.FragmentNavigator;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.multiversoexplorer.R;
@@ -47,11 +50,19 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
             viaje.setFavorito(!viaje.isEsFavorito());
             notifyItemChanged(position, viaje);
         });
+        holder.FotoViaje.setTransitionName(viaje.getFotos());
         holder.CardViewHome.setOnClickListener(view -> {
-            holder.itemView.getContext().startActivity(
+            FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
+                    .addSharedElement(holder.FotoViaje, "grow_image")
+                    .build();
+            Bundle bundle = new Bundle();
+            bundle.putString("url", viaje.getFotos());
+            Navigation.findNavController(holder.CardViewHome)
+                    .navigate(R.id.detallesViajeFragment, bundle, null, extras);
+            /*holder.itemView.getContext().startActivity(
                     new Intent(holder.itemView.getContext(), HomeViajesActivity.class)
-                            .putExtra("reservas",viaje)
-            );
+                            .putExtra("reservas",viaje)*/
+
         });
         if(viaje.isEsFavorito())
             holder.Fblike.setColorFilter(Color.RED);
