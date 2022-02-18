@@ -43,7 +43,7 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
         HomeViajesRV viaje = listaViajes.get(position);
         Picasso.get().load(viaje.getFotos()).into(holder.FotoViaje);
         holder.Titulo.setText(viaje.getViaje());
-        holder.Descripcion.setText(Html.fromHtml(viaje.getInformacion()));
+        //holder.Descripcion.setText(Html.fromHtml(viaje.getInformacion()));
         holder.Precio.setText(viaje.getPrecio() + " €");
         holder.Dias.setText(viaje.getDias() + " días");
         holder.Fblike.setOnClickListener(view -> {

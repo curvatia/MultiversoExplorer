@@ -48,10 +48,8 @@
             android:name=".ui.home.HomeViajesActivity"
             android:exported="true" />
         <activity
-            android:name=".model.login.LoginActivity"
-            android:exported="true" />
-        <activity
             android:name=".BottomNavActivity"
+            android:theme="@style/Theme.SplashMultiverso"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
