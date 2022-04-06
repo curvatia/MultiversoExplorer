@@ -16,6 +16,12 @@
     </fragment>
 
     <fragment
+        android:id="@+id/detallesViajeFragment"
+        android:name="com.example.multiversoexplorer.ui.home.DetallesViajeFragment"
+        android:label="fragment_detalles_viaje"
+        tools:layout="@layout/fragment_detalles_viaje" />
+
+    <fragment
         android:id="@+id/navigation_viajes"
         android:name="com.example.multiversoexplorer.ui.dashboard.DashboardFragment"
         android:label=" Mis Viajes"
@@ -32,9 +38,5 @@
         android:name="com.example.multiversoexplorer.ui.ajustes.AjustesFragment"
         android:label="Ajustes"
         tools:layout="@layout/fragment_ajustes" />
-    <fragment
-        android:id="@+id/detallesViajeFragment"
-        android:name="com.example.multiversoexplorer.ui.home.DetallesViajeFragment"
-        android:label="fragment_detalles_viaje"
-        tools:layout="@layout/fragment_detalles_viaje" />
+
 </navigation>
